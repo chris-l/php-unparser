@@ -1,4 +1,4 @@
-/* jslint node: true, stupid: true */
+/*jslint node: true, indent: 2, stupid:true, nomen:true */
 'use strict';
 var fs      = require('fs');
 
