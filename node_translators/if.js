@@ -2,18 +2,18 @@
 'use strict';
 var body = require('./helper/body');
 
-module.exports = function processIf(node) {
+module.exports = function processIf(node, indent) {
   var codegen, str;
 
   codegen = this.process.bind(this);
-  str = 'if' + this.ws + '(' + codegen(node[1]) + ')' + this.ws + '{' + this.nl +
-    body(codegen, this.indent, this.nl, node[2]) + '}';
+  str = 'if' + this.ws + '(' + codegen(node[1], indent) + ')' + this.ws + '{' + this.nl +
+    body(codegen, indent, this.indent, this.nl, node[2]) + indent + '}';
   if (node[3] && node[3][0] === 'if') {
-    str += this.ws + 'else' + this.ws + processIf.call(this, node[3]);
+    str += this.ws + 'else' + this.ws + processIf.call(this, node[3], indent);
   }
 
   if (node[3] && node[3][0] !== 'if') {
-    str += this.ws + 'else' + this.ws + '{' + this.nl + body(codegen, this.indent, this.nl, node[3]) + '}' + this.nl;
+    str += this.ws + 'else' + this.ws + '{' + this.nl + body(codegen, indent, this.indent, this.nl, node[3]) + indent + '}' + this.nl;
   }
   return str;
 };

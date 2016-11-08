@@ -10,15 +10,14 @@ function CodeGen(indent, dontUseWhitespaces) {
   this.indent = typeof indent === 'string'  ? indent : '  ';
   this.nl     = this.indent !== '' ? '\n' : '';
 
-  this.process = function (node, options) {
-    options = options || {};
+  this.process = function (node, indent) {
 
     if (node === null) {
       return '';
     }
 
     if (Array.isArray(node) && typeof this[node[0]] === 'function') {
-      return this[node[0]](node);
+      return this[node[0]](node, indent);
     }
     console.log(node);
     process.exit();

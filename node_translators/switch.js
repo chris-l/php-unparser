@@ -2,20 +2,20 @@
 'use strict';
 var body = require('./helper/body');
 
-module.exports = function (node) {
+module.exports = function (node, indent) {
   var codegen, str, that = this, cases;
 
   codegen = this.process.bind(this);
-  str = 'switch' + this.ws + '(' + codegen(node[1]) + ')' + this.ws + '{' + this.nl;
+  str = 'switch' + this.ws + '(' + codegen(node[1], indent) + ')' + this.ws + '{' + this.nl;
   cases = node[2].map(function (cas) {
     var head;
     if (cas.condition) {
-      head = 'case ' + codegen(cas.condition) + ':' + that.nl;
+      head = indent + 'case ' + codegen(cas.condition, indent) + ':' + that.nl;
     } else {
-      head = 'default:' + that.nl;
+      head = indent + 'default:' + that.nl;
     }
-    return head + body(codegen, that.indent, that.nl, cas.body);
+    return head + body(codegen, indent, that.indent, that.nl, cas.body);
   });
-  str += cases.join('') + '}';
+  str += cases.join('') + indent + '}';
   return str;
 };

@@ -1,7 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-module.exports = function (node) {
+module.exports = function (node, indent) {
   var codegen, prop;
 
   codegen = this.process.bind(this);
@@ -14,9 +14,9 @@ module.exports = function (node) {
       }
       return value;
     }
-    return codegen(node[2]);
+    return codegen(node[2], indent);
   }());
 
-  return codegen(node[1]) + '->' + prop;
+  return codegen(node[1], indent) + '->' + prop;
 };
 

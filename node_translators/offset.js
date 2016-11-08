@@ -1,8 +1,8 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-module.exports = function (node) {
+module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
-  return codegen(node[1]) + '[' + codegen(node[2]) + ']';
+  return codegen(node[1], indent) + '[' + codegen(node[2], indent) + ']';
 };
 
