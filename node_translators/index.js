@@ -16,8 +16,13 @@ function CodeGen(indent, dontUseWhitespaces) {
       return '';
     }
 
-    if (Array.isArray(node) && typeof this[node[0]] === 'function') {
-      return this[node[0]](node, indent);
+    if (Array.isArray(node)) {
+      if (node.length === 0) {
+        return '';
+      }
+      if (typeof this[node[0]] === 'function') {
+        return this[node[0]](node, indent);
+      }
     }
     console.log(node);
     process.exit();
