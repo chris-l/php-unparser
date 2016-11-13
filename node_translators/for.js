@@ -8,24 +8,33 @@ module.exports = function (node, indent) {
   str = 'for' + this.ws + '(';
 
   str += node[1].map(function (x) {
-    return codegen(x, indent);
+    if (x) {
+      return codegen(x, indent);
+    }
+    return '';
   }).join(',' + this.ws);
   str += ';' + this.ws;
 
   str += node[2].map(function (x) {
-    return codegen(x, indent);
+    if (x) {
+      return codegen(x, indent);
+    }
+    return '';
   }).join(',' + this.ws);
   str += ';' + this.ws;
 
   str += node[3].map(function (x) {
-    return codegen(x, indent);
+    if (x) {
+      return codegen(x, indent);
+    }
+    return '';
   }).join(',' + this.ws);
   str += ')' + this.ws + '{' + this.nl;
 
   str += node[4].map(function (expr) {
     return that.indent + codegen(expr, indent) + ';' + that.nl;
   }).join('');
-  str += '}';
+  str += indent + '}';
 
   return str;
 };
