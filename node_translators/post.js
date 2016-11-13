@@ -6,5 +6,8 @@ module.exports = function (node, indent) {
   if (node[1] === '+') {
     return codegen(node[2], indent) + '++';
   }
+  if (node[1] === '-') {
+    return codegen(node[2], indent) + '--';
+  }
 };
 
