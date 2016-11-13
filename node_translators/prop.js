@@ -8,13 +8,19 @@ module.exports = function (node, indent) {
   prop = (function () {
     var value = node[2][1];
 
-    if (node[2][0] === 'string') {
-      if (value.indexOf('$') > -1 || /^[0-9]/.test(value)) {
+    if (node[2][0] === 'string' || node[2][0] === 'number') {
+      if (typeof value === 'number') {
+        value = String(value);
+      }
+      if (value.indexOf('$') > -1 || /^[0-9]/.test(value) || value.indexOf('-') > -1) {
         return "{'" + value + "'}";
       }
       return value;
     }
-    return codegen(node[2], indent);
+    if (node[2][0] === 'var') {
+      return codegen(node[2], indent);
+    }
+    return '{' + codegen(node[2], indent) + '}';
   }());
 
   return codegen(node[1], indent) + '->' + prop;
