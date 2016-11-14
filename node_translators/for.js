@@ -2,8 +2,9 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, that = this, str;
+  var codegen, that = this, str, body;
 
+  body = require('./helper/body');
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
 
@@ -31,9 +32,7 @@ module.exports = function (node, indent) {
   }).join(',' + this.ws);
   str += ')' + this.ws + '{' + this.nl;
 
-  str += node[4].map(function (expr) {
-    return that.indent + codegen(expr, indent) + ';' + that.nl;
-  }).join('');
+  str += body(codegen, indent, this.indent, this.nl, node[4]);
   str += indent + '}';
 
   return str;
