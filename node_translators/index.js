@@ -13,18 +13,20 @@ function CodeGen(indent, dontUseWhitespaces) {
   this.process = function (node, indent) {
 
     if (node === null) {
-      return '';
+      return indent;
     }
 
     if (Array.isArray(node)) {
       if (node.length === 0) {
-        return '';
+        return indent;
       }
       if (typeof this[node[0]] === 'function') {
         return this[node[0]](node, indent);
       }
     }
     console.log(node);
+    console.log(JSON.stringify(node, null, '  '));
+    console.log((new Error()).stack);
     process.exit();
   };
 }
