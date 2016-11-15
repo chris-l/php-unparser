@@ -7,7 +7,7 @@ function CodeGen(indent, dontUseWhitespaces) {
   if (dontUseWhitespaces) {
     this.ws = '';
   }
-  this.indent = typeof indent === 'string'  ? indent : '  ';
+  this.indent = typeof indent === 'string'  ? indent : '    ';
   this.nl     = this.indent !== '' ? '\n' : '';
 
   this.process = function (node, indent) {
