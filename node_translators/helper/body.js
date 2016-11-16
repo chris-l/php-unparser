@@ -9,7 +9,7 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
     var line = indentation + codegen(expr, indentation);
 
     // This expressions don't require semicolons
-    if (['namespace', 'try', 'if', 'switch', 'for', 'foreach', 'function', 'while'].indexOf(expr[0]) === -1) {
+    if (['class', 'namespace', 'try', 'if', 'switch', 'for', 'foreach', 'function', 'while'].indexOf(expr[0]) === -1) {
       line += ';';
     }
 
