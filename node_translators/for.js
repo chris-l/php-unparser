@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, that = this, str, body;
+  var codegen, str, body;
 
   body = require('./helper/body');
   codegen = this.process.bind(this);
