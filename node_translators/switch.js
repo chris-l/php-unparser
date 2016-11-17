@@ -10,11 +10,11 @@ module.exports = function (node, indent) {
   cases = node[2].map(function (cas) {
     var head;
     if (cas.condition) {
-      head = indent + indent + 'case ' + codegen(cas.condition, indent) + ':' + that.nl;
+      head = indent + that.indent + 'case ' + codegen(cas.condition, indent) + ':' + that.nl;
     } else {
-      head = indent + indent + 'default:' + that.nl;
+      head = indent + that.indent + 'default:' + that.nl;
     }
-    return head + body(codegen, indent + indent, that.indent, that.nl, cas.body);
+    return head + body(codegen, indent + that.indent, that.indent, that.nl, cas.body);
   });
   str += cases.join('') + indent + '}';
   return str;
