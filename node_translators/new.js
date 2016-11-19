@@ -4,7 +4,7 @@
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
 
-  return 'new ' + node[1] + '(' + node[2].map(function (x) { return codegen(x, indent); }) + ')';
+  return 'new ' + node[1] + '(' + node[2].map(function (x) { return codegen(x, indent); }).join(',' + this.ws) + ')';
 };
 
 
