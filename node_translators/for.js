@@ -8,28 +8,34 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
 
-  str += node[1].map(function (x) {
-    if (x) {
-      return codegen(x, indent);
-    }
-    return '';
-  }).join(',' + this.ws);
+  if (node[1]) {
+    str += node[1].map(function (x) {
+      if (x) {
+        return codegen(x, indent);
+      }
+      return '';
+    }).join(',' + this.ws);
+  }
   str += ';' + this.ws;
 
-  str += node[2].map(function (x) {
-    if (x) {
-      return codegen(x, indent);
-    }
-    return '';
-  }).join(',' + this.ws);
+  if (node[2]) {
+    str += node[2].map(function (x) {
+      if (x) {
+        return codegen(x, indent);
+      }
+      return '';
+    }).join(',' + this.ws);
+  }
   str += ';' + this.ws;
 
-  str += node[3].map(function (x) {
-    if (x) {
-      return codegen(x, indent);
-    }
-    return '';
-  }).join(',' + this.ws);
+  if (node[3]) {
+    str += node[3].map(function (x) {
+      if (x) {
+        return codegen(x, indent);
+      }
+      return '';
+    }).join(',' + this.ws);
+  }
   str += ')' + this.ws + '{' + this.nl;
 
   if (typeof node[4][0] === 'string') {
