@@ -9,6 +9,9 @@ module.exports = function (node, indent) {
     str += codegen(node[2], indent) + this.ws + '=>' + this.ws;
   }
   str += codegen(node[3], indent) + ')' + this.ws + '{' + this.nl;
+  if (typeof node[4][0] === 'string') {
+    node[4] = [node[4]];
+  }
   str += require('./helper/body')(codegen, indent, this.indent, this.nl, node[4]);
   return str + indent + '}';
 };

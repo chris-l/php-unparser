@@ -32,6 +32,9 @@ module.exports = function (node, indent) {
   }).join(',' + this.ws);
   str += ')' + this.ws + '{' + this.nl;
 
+  if (typeof node[4][0] === 'string') {
+    node[4] = [node[4]];
+  }
   str += body(codegen, indent, this.indent, this.nl, node[4]);
   str += indent + '}';
 
