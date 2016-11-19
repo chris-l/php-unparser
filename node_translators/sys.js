@@ -8,9 +8,13 @@ module.exports = function (node, indent) {
       return codegen(x, indent);
     }).join(',' + this.ws);
   }
-  if (node[1] === 'require') {
-    return 'require(' + codegen(node[2], indent) + ')';
+  if (!node[2]) {
+    return node[1];
   }
+  if (typeof node[2][0] === 'string') {
+    return node[1] + '(' + codegen(node[2], indent) + ')';
+  }
+  return node[1] + '(' + node[2].map(function (x) { return codegen(x, indent); }).join(',' + this.ws) + ')';
 };
 
 
