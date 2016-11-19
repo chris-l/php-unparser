@@ -15,6 +15,9 @@ function addKeywords(x) {
   case 1:
     out += 'protected ';
     break;
+  case 2:
+    out += 'private ';
+    break;
   }
   if (x[1] === 1) {
     out += 'static ';
