@@ -10,7 +10,7 @@ function CodeGen(indent, dontUseWhitespaces) {
   this.indent = typeof indent === 'string'  ? indent : '    ';
   this.nl     = this.indent !== '' ? '\n' : '';
 
-  this.process = function (node, indent) {
+  this.process = function (node, indent, opt) {
 
     if (node === null) {
       return indent;
@@ -21,7 +21,7 @@ function CodeGen(indent, dontUseWhitespaces) {
         return indent;
       }
       if (typeof this[node[0]] === 'function') {
-        return this[node[0]](node, indent);
+        return this[node[0]](node, indent, opt);
       }
     }
     console.log(node);

@@ -77,7 +77,7 @@ module.exports = function (node, indent) {
   str += '\n' + sections.methods.map(function (method) {
     var out = indent + that.indent;
     out += addKeywords(method[7]);
-    out += codegen(method, indent + that.indent);
+    out += codegen(method, indent + that.indent, { notClosure : true });
     return out;
   }).join(this.nl + this.nl) + this.nl;
 

@@ -2,8 +2,9 @@
 'use strict';
 var doBody = require('./helper/body');
 
-module.exports = function (node, indent) {
+module.exports = function (node, indent, opt) {
   var codegen, str, args, useArgs, that;
+  opt = opt || {};
   codegen = this.process.bind(this);
   that = this;
 
@@ -23,7 +24,11 @@ module.exports = function (node, indent) {
     });
     str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
   }
-  str += this.ws + '{' + this.nl;
+  if (opt.notClosure === true) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
+  }
 
   str += doBody(codegen, indent, that.indent, that.nl, node[6]);
   str += indent + '}';
