@@ -24,6 +24,12 @@ module.exports = function (node, indent, opt) {
     });
     str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
   }
+
+  // It lacks body. Must be an abstract method declaration.
+  if (!node[6]) {
+    return str + ';';
+  }
+
   if (opt.notClosure === true) {
     str += this.nl + indent + '{' + this.nl;
   } else {

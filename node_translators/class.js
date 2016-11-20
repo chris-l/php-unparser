@@ -5,6 +5,9 @@ var doBody = require('./helper/body');
 function addKeywords(x) {
   var out = '';
 
+  if (x[2] === 1) {
+    out += 'abstract ';
+  }
   if (x[2] === 2) {
     out += 'final ';
   }
@@ -76,6 +79,14 @@ module.exports = function (node, indent) {
    */
   str += '\n' + sections.methods.map(function (method) {
     var out = indent + that.indent;
+
+    // It lacks body. Is an abstract method.
+    if (method.length === 7) {
+      out += addKeywords(method[6]);
+      out += codegen(method.slice(0, 6), indent + that.indent, { notClosure : true });
+      return out;
+    }
+
     out += addKeywords(method[7]);
     out += codegen(method, indent + that.indent, { notClosure : true });
     return out;
