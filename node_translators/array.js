@@ -2,19 +2,30 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, elements, that, body;
+  var codegen, elements, that, body, space;
   codegen = this.process.bind(this);
   that = this;
 
-  elements = node[1].map(function (ele) {
-    var value = codegen(ele.value, indent);
-    if (ele.key) {
-      return codegen(ele.key, indent) + that.ws + '=>' + that.ws + value;
-    }
-    return value;
-  });
+  function processElement(indent) {
+    return function (ele) {
+      var value = codegen(ele.value, indent);
+      if (ele.key) {
+        return codegen(ele.key, indent) + that.ws + '=>' + that.ws + value;
+      }
+      return value;
+    };
+  }
 
-  body = elements.join(',' + that.ws);
+  elements = node[1].map(processElement(indent));
+
+  if (elements.join().length > 80) {
+    space = that.nl + indent + this.indent;
+    elements = node[1].map(processElement(indent + this.indent));
+    body = space + elements.join(',' + space) + that.nl + indent;
+  } else {
+    body = elements.join(',' + that.ws);
+  }
+
   if (this.shortArray) {
     return '[' + body + ']';
   }
