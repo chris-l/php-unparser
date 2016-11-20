@@ -2,7 +2,8 @@
 'use strict';
 var CodeGen = require('./node_translators');
 
-module.exports = function (ast, indent, dontUseWhitespaces) {
-  var codeGen = new CodeGen(indent, dontUseWhitespaces);
+module.exports = function (ast, opts) {
+  opts = opts || {};
+  var codeGen = new CodeGen(opts.indent, opts.dontUseWhitespaces, opts.shortArray);
   return codeGen.process(ast, '');
 };

@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, elements, that;
+  var codegen, elements, that, body;
   codegen = this.process.bind(this);
   that = this;
 
@@ -14,6 +14,10 @@ module.exports = function (node, indent) {
     return value;
   });
 
-  return 'Array(' + elements.join(',' + that.ws) + ')';
+  body = elements.join(',' + that.ws);
+  if (this.shortArray) {
+    return '[' + body + ']';
+  }
+  return 'array(' + body + ')';
 };
 

@@ -2,13 +2,14 @@
 'use strict';
 var fs      = require('fs');
 
-function CodeGen(indent, dontUseWhitespaces) {
+function CodeGen(indent, dontUseWhitespaces, shortArray) {
   this.ws = ' ';
   if (dontUseWhitespaces) {
     this.ws = '';
   }
   this.indent = typeof indent === 'string'  ? indent : '    ';
   this.nl     = this.indent !== '' ? '\n' : '';
+  this.shortArray = shortArray || false;
 
   this.process = function (node, indent, opt) {
 
