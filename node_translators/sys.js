@@ -8,6 +8,12 @@ module.exports = function (node, indent) {
       return codegen(x, indent);
     }).join(',' + this.ws);
   }
+  if (node[1] === 'shell') {
+    return '`' + codegen(node[2], indent, { raw : true }) + '`';
+  }
+  if (node[1] === 'clone') {
+    return 'clone ' + codegen(node[2], indent);
+  }
   if (!node[2]) {
     return node[1];
   }
