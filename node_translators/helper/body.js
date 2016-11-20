@@ -6,6 +6,9 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
 
   indentation = isProgram ? '' : currentIndent + indent;
   str = body.map(function (expr) {
+    if (expr === null) {
+      return '';
+    }
     var line = indentation + codegen(expr, indentation, { notClosure : true });
 
     // This expressions don't require semicolons
