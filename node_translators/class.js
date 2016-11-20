@@ -32,7 +32,8 @@ module.exports = function (node, indent) {
   that = this;
 
   // Start
-  str = 'class ' + node[1];
+  str = node[2] === 188 ? 'abstract ' : '';
+  str += 'class ' + node[1];
 
   if (node[3]) {
     str += ' extends ' + node[3].join('\\');
