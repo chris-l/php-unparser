@@ -25,6 +25,9 @@ module.exports = function (node, indent) {
   case '!~':
     node[1] = '!=';
     break;
+  case '?':
+    node[1] = 'instanceof';
+    break;
   }
   return codegen(node[2], indent) + this.ws + node[1] + this.ws + codegen(node[3], indent);
 };
