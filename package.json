@@ -1,0 +1,23 @@
+{
+  "name": "php-unparser",
+  "version": "0.1.0",
+  "description": "Unparse the AST produced by glayzzle/php-parser back to code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/jslint/bin/jslint.js --indent 2 --color package.json index.js node_translators/*.js node_translators/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:chris-l/php-unparser.git"
+  },
+  "keywords": [
+    "unparser",
+    "php",
+    "ast"
+  ],
+  "author": "Christopher Luna <dev@christopher-luna.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jslint": "0.9.6"
+  }
+}
