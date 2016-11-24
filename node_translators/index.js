@@ -1,6 +1,5 @@
-/*jslint node: true, indent: 2, stupid:true, nomen:true */
+/*jslint node: true, indent: 2, nomen:true */
 'use strict';
-var fs      = require('fs');
 
 function CodeGen(indent, dontUseWhitespaces, shortArray) {
   this.ws = ' ';
@@ -31,11 +30,45 @@ function CodeGen(indent, dontUseWhitespaces, shortArray) {
     process.exit();
   };
 }
-fs.readdirSync(__dirname).forEach(function (file) {
-  if (/^[\w._\-]+\.js$/.test(file) && file !== 'index.js') {
-    var name = file.replace('.js', '');
-    CodeGen.prototype[name] = require('./' + name);
-  }
-});
 
 module.exports = CodeGen;
+// node translators
+CodeGen.prototype.array = require("./array.js");
+CodeGen.prototype.bin = require("./bin.js");
+CodeGen.prototype.bool = require("./bool.js");
+CodeGen.prototype.break = require("./break.js");
+CodeGen.prototype.call = require("./call.js");
+CodeGen.prototype.cast = require("./cast.js");
+CodeGen.prototype.class = require("./class.js");
+CodeGen.prototype.const = require("./const.js");
+CodeGen.prototype.continue = require("./continue.js");
+CodeGen.prototype.do = require("./do.js");
+CodeGen.prototype.foreach = require("./foreach.js");
+CodeGen.prototype.for = require("./for.js");
+CodeGen.prototype.function = require("./function.js");
+CodeGen.prototype.global = require("./global.js");
+CodeGen.prototype.if = require("./if.js");
+CodeGen.prototype.list = require("./list.js");
+CodeGen.prototype.magic = require("./magic.js");
+CodeGen.prototype.namespace = require("./namespace.js");
+CodeGen.prototype.new = require("./new.js");
+CodeGen.prototype.ns = require("./ns.js");
+CodeGen.prototype.number = require("./number.js");
+CodeGen.prototype.offset = require("./offset.js");
+CodeGen.prototype.post = require("./post.js");
+CodeGen.prototype.program = require("./program.js");
+CodeGen.prototype.prop = require("./prop.js");
+CodeGen.prototype.ref = require("./ref.js");
+CodeGen.prototype.retif = require("./retif.js");
+CodeGen.prototype.return = require("./return.js");
+CodeGen.prototype.set = require("./set.js");
+CodeGen.prototype.silent = require("./silent.js");
+CodeGen.prototype.static = require("./static.js");
+CodeGen.prototype.string = require("./string.js");
+CodeGen.prototype.switch = require("./switch.js");
+CodeGen.prototype.sys = require("./sys.js");
+CodeGen.prototype.throw = require("./throw.js");
+CodeGen.prototype.try = require("./try.js");
+CodeGen.prototype.unary = require("./unary.js");
+CodeGen.prototype.var = require("./var.js");
+CodeGen.prototype.while = require("./while.js");
