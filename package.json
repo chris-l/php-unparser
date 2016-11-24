@@ -4,7 +4,7 @@
   "description": "Unparse the AST produced by glayzzle/php-parser back to code.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/jslint/bin/jslint.js --indent 2 --color package.json index.js node_translators/*.js node_translators/**/*.js"
+    "test": "make lint"
   },
   "repository": {
     "type": "git",
