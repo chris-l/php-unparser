@@ -18,6 +18,7 @@
   "author": "Christopher Luna <dev@christopher-luna.com>",
   "license": "MIT",
   "devDependencies": {
+    "browserify": "13.1.1",
     "jslint": "0.9.6"
   }
 }
