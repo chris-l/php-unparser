@@ -1,6 +1,6 @@
 {
   "name": "php-unparser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unparse the AST produced by glayzzle/php-parser back to code.",
   "main": "index.js",
   "scripts": {
