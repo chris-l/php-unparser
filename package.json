@@ -19,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "13.1.1",
-    "jslint": "0.9.6"
+    "jslint": "0.9.6",
+    "uglifyjs": "2.4.10"
   }
 }
