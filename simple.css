@@ -1,0 +1,12 @@
+#code, #output {
+  overflow: auto;
+}
+#code {
+  height: 15em;
+}
+#output {
+  height: 25em;
+}
+.centered {
+  text-align: center;
+}
