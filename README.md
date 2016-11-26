@@ -16,6 +16,9 @@ var ast = ["program",[["sys","echo",[["string","hello world"]]]]];
 
 console.log(unparse(ast)); // Will output -> echo "hello world";
 ```
+## Demo
+
+[See it working](https://chris-l.github.io/php-unparser/)
 
 ## License
 
