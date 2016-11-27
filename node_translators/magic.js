@@ -2,6 +2,6 @@
 'use strict';
 
 module.exports = function (node) {
-  return node[1].substr('@todo:'.length);
+  return node[1];
 };
 
