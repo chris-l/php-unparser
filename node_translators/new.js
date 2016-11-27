@@ -2,9 +2,12 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen = this.process.bind(this);
+  var codegen, classNam;
 
-  return 'new ' + node[1] + '(' + node[2].map(function (x) { return codegen(x, indent); }).join(',' + this.ws) + ')';
+  codegen = this.process.bind(this);
+  classNam = node[1].length > 1 ? codegen(node[1], indent) : node[1][0];
+
+  return 'new ' + classNam + '(' + node[2].map(function (x) { return codegen(x, indent); }).join(',' + this.ws) + ')';
 };
 
 
