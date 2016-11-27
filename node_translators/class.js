@@ -68,7 +68,7 @@ module.exports = function (node, indent) {
     out += prop[0][0];
 
     if (prop[0][1]) {
-      out += that.ws + '=' + that.ws + codegen(prop[0][1], indent);
+      out += that.ws + '=' + that.ws + codegen(prop[0][1], indent + that.indent);
     }
     return out + ';';
   }).join(this.nl) + this.nl;
