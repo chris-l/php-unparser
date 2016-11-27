@@ -50,6 +50,7 @@ CodeGen.prototype.global = require("./global.js");
 CodeGen.prototype.if = require("./if.js");
 CodeGen.prototype.link = require("./link.js");
 CodeGen.prototype.list = require("./list.js");
+CodeGen.prototype.lookup = require("./lookup.js");
 CodeGen.prototype.magic = require("./magic.js");
 CodeGen.prototype.namespace = require("./namespace.js");
 CodeGen.prototype.new = require("./new.js");
