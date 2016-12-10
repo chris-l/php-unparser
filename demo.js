@@ -1,6 +1,6 @@
 /* This program is released under the MIT license http://opensource.org/licenses/MIT */
 /*jslint indent: 2, regexp:true*/
-/*global phpUnparser, phpParser, document*/
+/*global phpUnparser, phpParser, document, Prism*/
 
 (function () {
   'use strict';
@@ -13,6 +13,7 @@
     output = document.querySelector('#output');
     try {
       output.textContent = phpUnparser(phpParser.parseEval(code));
+      Prism.highlightAll();
     } catch (e) {
       output.textContent = '***Error***\nThe entered string seems to be invalid php';
     }
