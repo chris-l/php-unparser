@@ -54,7 +54,15 @@ module.exports = function (node, indent) {
    * Prepare constants
    */
   str += sections.constants.map(function (prop) {
-    return indent + that.indent + 'const ' + prop[0][0] + that.ws + '=' +
+    var out = indent + that.indent;
+
+    // handle doc decoration
+    if (prop[0] === 'doc') {
+      out += prop[1] + that.nl + indent + that.indent;
+      prop = prop[2];
+    }
+
+    return out + 'const ' + prop[0][0] + that.ws + '=' +
       that.ws + codegen(prop[0][1], indent) + ';';
   }).join(this.nl) + this.nl;
 
@@ -64,11 +72,18 @@ module.exports = function (node, indent) {
    */
   str += sections.properties.map(function (prop) {
     var out = indent + that.indent;
-    out += addKeywords(prop[1]);
-    out += prop[0][0];
 
-    if (prop[0][1]) {
-      out += that.ws + '=' + that.ws + codegen(prop[0][1], indent + that.indent);
+    // handle doc decoration
+    if (prop[0] === 'doc') {
+      out += prop[1] + that.nl + indent + that.indent;
+      prop = prop[2];
+    }
+
+    out += addKeywords(prop[2]);
+    out += prop[0];
+
+    if (prop[1]) {
+      out += that.ws + '=' + that.ws + codegen(prop[1], indent + that.indent);
     }
     return out + ';';
   }).join(this.nl) + this.nl;
@@ -79,6 +94,12 @@ module.exports = function (node, indent) {
    */
   str += '\n' + sections.methods.map(function (method) {
     var out = indent + that.indent;
+
+    // handle doc decoration
+    if (method[0] === 'doc') {
+      out += method[1] + that.nl + indent + that.indent;
+      method = method[2];
+    }
 
     // It lacks body. Is an abstract method.
     if (method.length === 7) {
@@ -97,4 +118,3 @@ module.exports = function (node, indent) {
 
   return str;
 };
-
