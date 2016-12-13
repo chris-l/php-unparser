@@ -1,0 +1,6 @@
+[submodule "test/magento2"]
+  path = test/magento2
+  url = https://github.com/magento/magento2
+[submodule "test/symfony"]
+  path = test/symfony
+  url = https://github.com/symfony/symfony.git
