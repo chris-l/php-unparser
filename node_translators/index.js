@@ -22,12 +22,16 @@ function CodeGen(indent, dontUseWhitespaces, shortArray) {
       }
       if (typeof this[node[0]] === 'function') {
         return this[node[0]](node, indent, opt);
+      } else {
+        throw new Error(
+          'Unhandled node type [' + node[0] + ']'
+        );
       }
+    } else {
+      throw new Error(
+        'Bad AST structure, expects array'
+      );
     }
-    console.log(node);
-    console.log(JSON.stringify(node, null, '  '));
-    console.log((new Error()).stack);
-    process.exit();
   };
 }
 
