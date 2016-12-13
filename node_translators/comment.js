@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  return this.nl + indent + node[1];
+  return this.nl + indent + node[1].join('');
 };
