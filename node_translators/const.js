@@ -1,6 +1,9 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
+/**
+ * Constant declaration
+ */
 module.exports = function (node, indent) {
   var codegen, decl = [], that = this;
   codegen = this.process.bind(this);
