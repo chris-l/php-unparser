@@ -4,6 +4,7 @@
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
   if (node[1] === 'echo') {
+    if (!Array.isArray(node[2][0]))  node[2] = [node[2]];
     return 'echo ' + node[2].map(function (x) {
       return codegen(x, indent);
     }).join(',' + this.ws);
@@ -22,5 +23,3 @@ module.exports = function (node, indent) {
   }
   return node[1] + '(' + node[2].map(function (x) { return codegen(x, indent); }).join(',' + this.ws) + ')';
 };
-
-
