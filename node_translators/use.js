@@ -12,5 +12,4 @@ module.exports = function (node, indent) {
   return indent + 'use ' + (
     node[3] ? node[3] + ' ' : ''
   ) + ns;
-  throw new Error('todo');
 };
