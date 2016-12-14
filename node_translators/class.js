@@ -89,6 +89,14 @@ module.exports = function (node, indent) {
       return out;
     }
 
+    if (method[0] === 'comment' && method[2][0] === 'function') {
+      out += codegen(method, indent + that.indent, { notClosure : true });
+      out += that.nl + indent + that.indent;
+      out += addKeywords(method[2][7]);
+      out += codegen(method[2], indent + that.indent, { notClosure : true });
+      return out;
+    }
+
     out += addKeywords(method[7]);
     out += codegen(method, indent + that.indent, { notClosure : true });
     return out;
