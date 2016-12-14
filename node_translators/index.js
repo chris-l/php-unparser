@@ -40,6 +40,7 @@ CodeGen.prototype.break = require("./break.js");
 CodeGen.prototype.call = require("./call.js");
 CodeGen.prototype.cast = require("./cast.js");
 CodeGen.prototype.class = require("./class.js");
+CodeGen.prototype.constant = require("./constant.js");
 CodeGen.prototype.const = require("./const.js");
 CodeGen.prototype.continue = require("./continue.js");
 CodeGen.prototype.do = require("./do.js");
