@@ -17,6 +17,5 @@ module.exports = function (node, indent) {
   }
 
   return codegen(node[1], indent) + this.ws + '?' +
-    (left ? this.ws + left + this.ws : '') + ':' + this.ws + right
-  ;
+    (left ? this.ws + left + this.ws : '') + ':' + this.ws + right;
 };
