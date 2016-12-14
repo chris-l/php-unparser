@@ -1,10 +1,13 @@
 /* This program is released under the MIT license http://opensource.org/licenses/MIT */
 /*jslint indent: 2, regexp:true*/
-/*global phpUnparser, phpParser, document, Prism*/
+/*global phpUnparser, document, Prism*/
 
 (function () {
   'use strict';
-  var codeEle = document.querySelector('#code');
+  var codeEle, phpParser;
+
+  phpParser = require('php-parser');
+  codeEle = document.querySelector('#code');
 
   function changeCode() {
     var code, output;
