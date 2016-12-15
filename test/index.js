@@ -61,7 +61,6 @@ var testFile = function(filename, isDebug) {
   });
 };
 
-console.log(process.argv);
 var fIndex = process.argv.indexOf('--file');
 if (fIndex > -1) {
   testFile(process.argv[fIndex + 1], true);
