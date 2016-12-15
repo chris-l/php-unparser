@@ -77,6 +77,7 @@ CodeGen.prototype.string = require("./string.js");
 CodeGen.prototype.switch = require("./switch.js");
 CodeGen.prototype.sys = require("./sys.js");
 CodeGen.prototype.throw = require("./throw.js");
+CodeGen.prototype.trait = require("./trait.js");
 CodeGen.prototype.try = require("./try.js");
 CodeGen.prototype.unary = require("./unary.js");
 CodeGen.prototype.use = require("./use.js");
