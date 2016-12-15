@@ -29,13 +29,13 @@ module.exports = function (node, indent) {
     var out = indent + that.indent;
 
     // handle doc decoration
-    if (prop[0] === 'doc') {
+    if (prop[0] === 'doc' || prop[0] === 'comment') {
       out += prop[1] + that.nl + indent + that.indent;
       prop = prop[2];
     }
 
-    return out + 'const ' + prop[0][0] + that.ws + '=' +
-      that.ws + codegen(prop[0][1], indent) + ';';
+    return out + 'const ' + prop[0] + that.ws + '=' +
+      that.ws + codegen(prop[1], indent) + ';';
   }).join(this.nl) + this.nl;
 
   /**
@@ -45,7 +45,7 @@ module.exports = function (node, indent) {
     var out = indent + that.indent;
 
     // handle doc decoration
-    if (method[0] === 'doc') {
+    if (method[0] === 'doc' || method[0] === 'comment') {
       out += method[1] + that.nl + indent + that.indent;
       method = method[2];
     }
