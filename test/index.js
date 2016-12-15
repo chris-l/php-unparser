@@ -34,18 +34,19 @@ var hasError = false;
 var counter = 0;
 var total = 0;
 // try to parse the file
-var testFile = function(filename) {
+var testFile = function(filename, isDebug) {
   fs.readFile(filename, function(err, data) {
     if (!err) {
       counter ++;
       try {
         var ast = parser.parseCode(data.toString(), {
           parser: {
-            extractDoc: true
+            extractDoc: true,
+            debug: isDebug
           }
         });
         var code = unparse(ast);
-        // console.log(code);
+        if (isDebug) console.log(code);
         if (counter === total) {
           console.log('Finished to test ' + total + ' file(s)');
           process.exit(0);
@@ -59,5 +60,11 @@ var testFile = function(filename) {
     }
   });
 };
-scanDir(__dirname + '/magento2');
-// testFile(__dirname + '/magento2/app/autoload.php');
+
+console.log(process.argv);
+var fIndex = process.argv.indexOf('--file');
+if (fIndex > -1) {
+  testFile(process.argv[fIndex + 1], true);
+} else {
+  scanDir(__dirname + '/magento2');
+}
