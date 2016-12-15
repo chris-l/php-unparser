@@ -39,6 +39,7 @@ CodeGen.prototype.array = require("./array.js");
 CodeGen.prototype.bin = require("./bin.js");
 CodeGen.prototype.bool = require("./bool.js");
 CodeGen.prototype.break = require("./break.js");
+CodeGen.prototype.byref = require("./byref.js");
 CodeGen.prototype.call = require("./call.js");
 CodeGen.prototype.cast = require("./cast.js");
 CodeGen.prototype.class = require("./class.js");
