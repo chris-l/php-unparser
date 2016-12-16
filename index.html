@@ -27,7 +27,11 @@
       <textarea class="form-control" id="code" placeholder="Enter the unformatted code here">
 CLASS Test extends SomeClass{
 private $someProp; public $otherProp = 1;
+  /**
+     * This is the constructor
+       */
     function __construct($arg=array()) {
+// Useless multiplication
     $this-&gt;someProp=1*10;
     if(count($arg)&gt;0) { foreach($arg as$no) { $this-&gt;otherProp += $no; }}
     }
