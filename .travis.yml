@@ -4,5 +4,7 @@ node_js:
   - "5"
   - "4"
   - "0.10"
+notifications:
+  email: false
 script: make test
 after_success: cat /home/travis/build/glayzzle/php-unparser/coverage/lcov.info | /home/travis/build/glayzzle/php-unparser/node_modules/coveralls/bin/coveralls.js
