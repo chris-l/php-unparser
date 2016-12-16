@@ -1,6 +1,8 @@
 php-unparser
 ============
 
+[![Build Status](https://travis-ci.org/glayzzle/php-unparser.svg?branch=master)](https://travis-ci.org/glayzzle/php-unparser)
+
 This project is a JavaScript based [unparser](https://en.wikipedia.org/wiki/Unparser) for the AST produced by glayzzle's [php-parser](https://github.com/glayzzle/php-parser).
 
 It aims to produce code that uses the style format recommended by PSR-1 and PSR-2.
