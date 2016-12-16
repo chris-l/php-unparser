@@ -15,7 +15,7 @@
     code = codeEle.value;
     output = document.querySelector('#output');
     try {
-      output.textContent = phpUnparser(phpParser.parseEval(code));
+      output.textContent = phpUnparser(phpParser.parseEval(code, { parser : { extractDoc: true }}));
       Prism.highlightAll();
     } catch (e) {
       output.textContent = '***Error***\nThe entered string seems to be invalid php';
