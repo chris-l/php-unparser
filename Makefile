@@ -11,4 +11,4 @@ lint:
 	node_modules/jslint/bin/jslint.js --indent 2 --color package.json index.js node_translators/*.js node_translators/**/*.js
 
 test: index lint
-	node test/index.js
+	node --stack-size=5000 node_modules/istanbul/lib/cli.js cover -x \"**/test/**\" test/index.js
