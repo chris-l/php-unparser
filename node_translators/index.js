@@ -1,14 +1,16 @@
 /*jslint node: true, indent: 2, nomen:true */
 'use strict';
 
-function CodeGen(indent, dontUseWhitespaces, shortArray) {
+function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets) {
   this.ws = ' ';
   if (dontUseWhitespaces) {
     this.ws = '';
   }
+
   this.indent = typeof indent === 'string'  ? indent : '    ';
   this.nl     = this.indent !== '' ? '\n' : '';
   this.shortArray = shortArray || false;
+  this.forceNamespaceBrackets = forceNamespaceBrackets || false;
 
   this.process = function (node, indent, opt) {
 

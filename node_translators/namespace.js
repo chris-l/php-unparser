@@ -5,6 +5,7 @@ var body = require('./helper/body');
 module.exports = function (node, indent) {
   var str, codegen;
 
+
   str = 'namespace ' + node[1].join('\\') + this.ws + '\n{\n\n';
   codegen = this.process.bind(this);
   str += body(codegen, indent, this.indent, this.nl, node[2]);
@@ -12,4 +13,3 @@ module.exports = function (node, indent) {
 
   return str;
 };
-
