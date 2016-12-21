@@ -15,7 +15,7 @@ module.exports = function processIf(node, indent) {
     }
     str += this.ws + '{' + this.nl + body(codegen, indent, this.indent, this.nl, node[2]) + indent + '}';
   } else if (!node[3]) {
-    str += ';'
+    str += ';';
   }
 
   if (node[3]) {
