@@ -51,6 +51,9 @@ var testFile = function(filename, isDebug) {
           console.log('Finished to test ' + total + ' file(s)');
           process.exit(0);
         }
+        if (counter % 500 === 0) {
+          console.log(counter + ' of ' + total + ' - ' + Math.round(counter / total * 100) + '%');
+        }
       } catch(e) {
         console.log('Error into ' + filename);
         console.error(e.stack);
