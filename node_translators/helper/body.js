@@ -12,7 +12,7 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
     if (expr === null) {
       return '';
     }
-    var line = indentation + codegen(expr, indentation, { notClosure : true });
+    var line = indentation + codegen(expr, indentation);
 
     // This expressions don't require semicolons
     if (noSemiColons.indexOf(expr[0]) === -1) {

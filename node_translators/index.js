@@ -12,7 +12,7 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
   this.shortArray = shortArray || false;
   this.forceNamespaceBrackets = forceNamespaceBrackets || false;
 
-  this.process = function (node, indent, opt) {
+  this.process = function (node, indent) {
 
     if (node === null) {
       return indent;
@@ -23,7 +23,7 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
         return indent;
       }
       if (typeof this[node[0]] === 'function') {
-        return this[node[0]](node, indent, opt);
+        return this[node[0]](node, indent);
       }
       throw new Error(
         'Unhandled node type [' + node[0] + ']'
