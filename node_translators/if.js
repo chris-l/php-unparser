@@ -6,12 +6,17 @@ module.exports = function processIf(node, indent) {
   var codegen, str, that = this;
 
   codegen = this.process.bind(this);
-  if (typeof node[2][0] === 'string') {
-    node[2] = [node[2]];
-  }
 
-  str = 'if' + this.ws + '(' + codegen(node[1], indent) + ')' + this.ws + '{' + this.nl +
-    body(codegen, indent, this.indent, this.nl, node[2]) + indent + '}';
+  str = 'if' + this.ws + '(' + codegen(node[1], indent) + ')';
+
+  if (node[2]) {
+    if (typeof node[2][0] === 'string') {
+      node[2] = [node[2]];
+    }
+    str += this.ws + '{' + this.nl + body(codegen, indent, this.indent, this.nl, node[2]) + indent + '}';
+  } else if (!node[3]) {
+    str += ';'
+  }
 
   if (node[3]) {
     str += (function () {
@@ -34,4 +39,3 @@ module.exports = function processIf(node, indent) {
   }
   return str;
 };
-
