@@ -88,3 +88,4 @@ CodeGen.prototype.use = require("./use.js");
 CodeGen.prototype.variadic = require("./variadic.js");
 CodeGen.prototype.var = require("./var.js");
 CodeGen.prototype.while = require("./while.js");
+CodeGen.prototype.yield = require("./yield.js");
