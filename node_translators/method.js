@@ -11,7 +11,7 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
   that = this;
 
-  str = keywords(node[6]) + ' function ';
+  str = keywords(node.length === 7 ? node[6] : node[5]) + ' function ';
 
   if (node[3]) {
     str += '&';
@@ -24,7 +24,7 @@ module.exports = function (node, indent) {
   }
 
   // It lacks body. Must be an abstract method declaration.
-  if (!node[5]) {
+  if (node.length === 6) {
     return str + ';';
   }
 
