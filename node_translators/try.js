@@ -12,7 +12,7 @@ module.exports = function (node, indent) {
   str += indent + '}';
 
   str += node[2].map(function (except) {
-    var out = this.ws + 'catch' + this.ws + '(' + except.exception + ' ' + codegen(except.as) + ')' + this.ws + '{' + this.nl;
+    var out = this.ws + 'catch' + this.ws + '(' + except.exception.join('\\') + ' ' + codegen(except.as) + ')' + this.ws + '{' + this.nl;
     out += doBody(codegen, indent, this.indent, this.nl, except.body);
     out += indent + '}';
     return out;
@@ -26,4 +26,3 @@ module.exports = function (node, indent) {
 
   return str;
 };
-
