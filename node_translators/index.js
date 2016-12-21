@@ -85,5 +85,6 @@ CodeGen.prototype.trait = require("./trait.js");
 CodeGen.prototype.try = require("./try.js");
 CodeGen.prototype.unary = require("./unary.js");
 CodeGen.prototype.use = require("./use.js");
+CodeGen.prototype.variadic = require("./variadic.js");
 CodeGen.prototype.var = require("./var.js");
 CodeGen.prototype.while = require("./while.js");
