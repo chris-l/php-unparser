@@ -1,12 +1,30 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
+// name, type, value, isRef, isVariadic
 function processElement(indent, ws, codegen) {
   return function (arg) {
-    if (arg[2].length > 0) {
-      return arg[0] + ws + '=' + ws + codegen(arg[2], indent);
+    var str = '';
+
+    if (arg[2]) { // type hint
+      str += arg[2].join('\\') + ' ';
     }
-    return arg[0];
+
+    if (arg[4]) { // byref
+      str += '&';
+    }
+
+    if (arg[5]) { // variadic
+      str += '...';
+    }
+
+    str += arg[1]; // name
+
+    if (arg[3]) { // default value
+      str += ws + '=' + ws + codegen(arg[3], indent);
+    }
+
+    return str;
   };
 }
 
@@ -15,12 +33,12 @@ module.exports = function (nodes, indent, self) {
 
   codegen = self.process.bind(self);
   args = nodes.map(processElement(indent, self.ws, codegen));
-  if (args.join().length > 80) {
+  listArgs = args.join(',' + self.ws);
+
+  if (listArgs.length > 80) {
     space = self.nl + indent + self.indent;
     args = nodes.map(processElement(indent + self.indent, self.ws, codegen));
     listArgs = space + args.join(',' + space) + self.nl + indent;
-  } else {
-    listArgs = args.join(',' + self.ws);
   }
 
   return '(' + listArgs + ')';
