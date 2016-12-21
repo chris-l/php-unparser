@@ -1,7 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-module.exports = function addKeywords(x) {
+module.exports = function keywords(x) {
   var out = '';
 
   if (x[2] === 1) {
