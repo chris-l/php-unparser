@@ -2,7 +2,7 @@
 'use strict';
 var noSemiColons = [
   'class', 'namespace', 'try', 'if', 'switch',
-  'for', 'foreach', 'function', 'while', 'doc', 'comment'
+  'for', 'foreach', 'function', 'while', 'doc', 'comment', 'label'
 ];
 module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) {
   var str, indentation;
@@ -12,7 +12,7 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
     if (expr === null) {
       return '';
     }
-    var line = indentation + codegen(expr, indentation, { notClosure : true });
+    var line = indentation + codegen(expr, indentation);
 
     // This expressions don't require semicolons
     if (noSemiColons.indexOf(expr[0]) === -1) {

@@ -1,21 +1,27 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
+var keywords = require('./helper/keywords');
+
 /**
  * Constant declaration
  */
 module.exports = function (node, indent) {
-  var codegen, decl = [], that = this;
+  var codegen, str;
   codegen = this.process.bind(this);
-  node[1].forEach(function (item, index) {
-    decl.push(
-      (index === 0 ?
-            indent + 'const ' :
-            that.nl + indent + '      ')
-        + item[0]  // constant name
-        + that.ws + '=' + that.ws +
-        codegen(item[1], indent) // constant value
-    );
-  });
-  return decl.join(',' + this.ws);
+
+  if (node.length === 4) {
+    // a class constant (name, value, flags)
+    str = indent + keywords(node[3]);
+    str += ' const ';
+  } else {
+    // a namespace constant (name, value)
+    str = indent + 'const ';
+  }
+
+  str += node[1];
+  str += this.ws + '=' + this.ws;
+  str += codegen(node[2], indent) + ';';
+
+  return str;
 };

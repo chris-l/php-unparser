@@ -2,13 +2,17 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, that, body;
+  var codegen, body;
   codegen = this.process.bind(this);
-  that = this;
 
   body = node[1].map(function (ele) {
     return codegen(ele, indent);
-  }).join(',' + that.ws);
-  return 'list(' + body + ')' + this.ws + '=' + this.ws + codegen(node[2], indent);
-};
+  }).join(',' + this.ws);
+  body = 'list(' + body + ')';
 
+  if (node[2]) {
+    body += this.ws + '=' + this.ws + codegen(node[2], indent);
+  }
+
+  return body;
+};
