@@ -1,26 +1,36 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-module.exports = function (node, indent) {
-  var codegen, str, doBody;
+var doBody = require('./helper/body');
+var identifier = require('./identifier');
 
-  doBody = require('./helper/body');
+function resolveExceptions (items) {
+  var result = [];
+  for(var i = 0; i < items.length; i++) {
+    result.push(identifier(items[i]));
+  }
+  return result.join('|');
+}
+
+module.exports = function (node, indent) {
+  var codegen, str;
+
 
   codegen = this.process.bind(this);
   str = 'try' + this.ws + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node[1]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
   str += indent + '}';
 
-  str += node[2].map(function (except) {
-    var out = this.ws + 'catch' + this.ws + '(' + except.exception.join('\\') + ' ' + codegen(except.as) + ')' + this.ws + '{' + this.nl;
-    out += doBody(codegen, indent, this.indent, this.nl, except.body);
+  str += node.catches.map(function (except) {
+    var out = this.ws + 'catch' + this.ws + '(' + resolveExceptions(except.what) + ' ' + codegen(except.variable) + ')' + this.ws + '{' + this.nl;
+    out += doBody(codegen, indent, this.indent, this.nl, except.body.children);
     out += indent + '}';
     return out;
   }, this).join('');
 
-  if (node[3]) {
+  if (node.allways) {
     str += this.ws + 'finally' + this.ws + '{' + this.nl;
-    str += doBody(codegen, indent, this.indent, this.nl, node[3]);
+    str += doBody(codegen, indent, this.indent, this.nl, node.allways.children);
     str += indent + '}';
   }
 
