@@ -10,5 +10,8 @@ dist: index
 lint:
 	node_modules/jslint/bin/jslint.js --indent 2 --color package.json index.js node_translators/*.js node_translators/**/*.js
 
-test: index lint
+test: index
+	node --stack-size=5000 test/index.js
+
+cover: index lint
 	node --stack-size=5000 node_modules/istanbul/lib/cli.js cover -x \"**/test/**\" test/index.js
