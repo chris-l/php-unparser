@@ -18,19 +18,16 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
       return indent;
     }
 
-    if (Array.isArray(node)) {
-      if (node.length === 0) {
-        return indent;
-      }
-      if (typeof this[node[0]] === 'function') {
-        return this[node[0]](node, indent);
+    if (node && node.kind) {
+      if (typeof this[node.kind] === 'function') {
+        return this[node.kind](node, indent);
       }
       throw new Error(
-        'Unhandled node type [' + node[0] + ']'
+        'Unhandled node type [' + node.kind + ']'
       );
     }
     throw new Error(
-      'Bad AST structure, expects array'
+      'Bad AST structure'
     );
   };
 }
@@ -58,6 +55,7 @@ CodeGen.prototype.function = require("./function.js");
 CodeGen.prototype.global = require("./global.js");
 CodeGen.prototype.goto = require("./goto.js");
 CodeGen.prototype.if = require("./if.js");
+CodeGen.prototype.include = require("./include.js");
 CodeGen.prototype.interface = require("./interface.js");
 CodeGen.prototype.label = require("./label.js");
 CodeGen.prototype.link = require("./link.js");
@@ -87,7 +85,7 @@ CodeGen.prototype.trait = require("./trait.js");
 CodeGen.prototype.try = require("./try.js");
 CodeGen.prototype.unary = require("./unary.js");
 CodeGen.prototype.use = require("./use.js");
+CodeGen.prototype.variable = require("./variable.js");
 CodeGen.prototype.variadic = require("./variadic.js");
-CodeGen.prototype.var = require("./var.js");
 CodeGen.prototype.while = require("./while.js");
 CodeGen.prototype.yield = require("./yield.js");
