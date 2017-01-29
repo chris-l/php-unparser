@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = function (node) {
-  return 'goto ' + node[1];
+  return 'goto ' + node.label;
 };
