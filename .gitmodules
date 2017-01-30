@@ -1,3 +1,0 @@
-[submodule "test/magento2"]
-	path = test/magento2
-	url = https://github.com/magento/magento2
