@@ -2,6 +2,5 @@
 'use strict';
 
 module.exports = function (node) {
-  return node[1];
+  return node.value;
 };
-
