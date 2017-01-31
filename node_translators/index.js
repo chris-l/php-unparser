@@ -47,6 +47,7 @@ CodeGen.prototype.comment = require("./comment.js");
 CodeGen.prototype.const = require("./const.js");
 CodeGen.prototype.constref = require("./constref.js");
 CodeGen.prototype.continue = require("./continue.js");
+CodeGen.prototype.declare = require("./declare.js");
 CodeGen.prototype.doc = require("./doc.js");
 CodeGen.prototype.do = require("./do.js");
 CodeGen.prototype.echo = require("./echo.js");
