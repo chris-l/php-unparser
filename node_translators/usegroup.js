@@ -5,12 +5,22 @@
  * Usage declaration
  */
 module.exports = function (node, indent) {
-  console.log(node);
-  var ns = node[1].join('\\');
-  if (node[1][node[1].length - 1] !== node[2]) {
-    ns += ' as ' + node[2];
+  var str = indent + 'use' + this.ws, items = [];
+  node.items.forEach(function(item) {
+    var useItem = item.name.name;
+    if (item.alias) {
+      useItem += ' as ' + item.alias;
+    }
+    useItem += ';';
+    items.push(useItem);
+  });
+  if (node.items.length > 1) {
+    var glue = this.nl +  indent + this.indent;
+    str += node.name.name + this.ws + '{' + glue;
+    str += items.join(glue) + this.nl;
+    str += indent + '};' + this.nl;
+  } else {
+    str += items[0] + ';' + this.nl;
   }
-  return indent + 'use ' + (
-    node[3] ? node[3] + ' ' : ''
-  ) + ns;
+  return str;
 };

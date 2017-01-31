@@ -3,7 +3,7 @@
 var noSemiColons = [
   'class', 'namespace', 'try', 'if', 'switch',
   'for', 'foreach', 'function', 'while', 'doc',
-  'comment', 'label', 'declare'
+  'comment', 'label', 'declare', 'usegroup'
 ];
 module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) {
   var str, indentation;
