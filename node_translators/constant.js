@@ -10,18 +10,11 @@ module.exports = function (node, indent) {
   var codegen, str;
   codegen = this.process.bind(this);
 
-  if (node.length === 4) {
-    // a class constant (name, value, flags)
-    str = indent + keywords(node[3]);
-    str += ' const ';
-  } else {
-    // a namespace constant (name, value)
-    str = indent + 'const ';
-  }
-
-  str += node[1];
+  // a namespace constant (name, value)
+  str = indent + 'const ';
+  str += node.name;
   str += this.ws + '=' + this.ws;
-  str += codegen(node[2], indent) + ';';
+  str += codegen(node.value, indent) + ';';
 
   return str;
 };
