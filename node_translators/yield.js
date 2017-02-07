@@ -4,14 +4,14 @@
 module.exports = function (node, indent) {
   var codegen, str;
   str = 'yield';
-  codegen = this.process.bind(this);
-  if (node[1]) {
-    // yield $value
-    str += ' ' + codegen(node[1], indent);
-    if (node[2]) {
-      // yield $value => $key
-      str += ' => ' + codegen(node[2], indent);
+  if (node.value) {
+    codegen = this.process.bind(this);
+    if (node.key) {
+      // yield $key => $value
+      str += ' ' + codegen(node.key, indent) + ' =>';
     }
+    // yield $value
+    str += ' ' + codegen(node.value, indent);
   }
   return str;
 };
