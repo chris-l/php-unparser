@@ -6,22 +6,22 @@ function processElement(indent, ws, codegen) {
   return function (arg) {
     var str = '';
 
-    if (arg[2]) { // type hint
-      str += arg[2].join('\\') + ' ';
+    if (arg.type) { // type hint
+      str += codegen(arg.type, indent);
     }
 
-    if (arg[4]) { // byref
+    if (arg.byref) { // byref
       str += '&';
     }
 
-    if (arg[5]) { // variadic
+    if (arg.variadic) { // variadic
       str += '...';
     }
 
-    str += arg[1]; // name
+    str += arg.name; // name
 
-    if (arg[3]) { // default value
-      str += ws + '=' + ws + codegen(arg[3], indent);
+    if (arg.value) { // default value
+      str += ws + '=' + ws + codegen(arg.value, indent);
     }
 
     return str;
