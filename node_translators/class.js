@@ -9,27 +9,29 @@ module.exports = function (node, indent) {
   that = this;
 
   // Start
-  if (node[2] === 1) {
+  if (node.isAbstract) {
     str += 'abstract ';
-  } else if (node[2] === -1) {
+  } else if (node.isFinal) {
     str += 'final ';
   }
 
-  str += 'class ' + node[1];
+  str += 'class ' + node.name;
 
-  if (node[3]) {
-    str += ' extends ' + node[3].join('\\');
+  if (node.extends) {
+    str += ' extends ' + codegen(node.extends, indent);
   }
 
-  if (node[4]) {
-    str += ' implements ' + node[4].map(function (x) { return x.join('\\'); }).join(',' + that.ws);
+  if (node.implements) {
+    str += ' implements ' + node.implements.map(function (x) {
+      return codegen(x, indent);
+    }).join(',' + that.ws);
   }
 
   // begin curly brace
   str += this.nl + indent + '{' + this.nl;
 
   // class body
-  str += doBody(codegen, indent, this.indent, this.nl, node[5]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body);
 
   // end curly brace
   str += indent + '}\n';
