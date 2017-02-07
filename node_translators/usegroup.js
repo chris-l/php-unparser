@@ -6,6 +6,9 @@
  */
 module.exports = function (node, indent) {
   var str = indent + 'use' + this.ws, items = [];
+  if (node.type) {
+    str += node.type + this.ws;
+  }
   node.items.forEach(function(item) {
     var useItem = item.name.name;
     if (item.alias) {
