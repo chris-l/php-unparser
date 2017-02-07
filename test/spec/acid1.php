@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 /** a comment before the namespace comment **/
 namespace foo\bar {
-  use foo {
+  # single line comment
+  use function foo {
     // sample code
     baz,
     // with alias
@@ -19,6 +20,10 @@ namespace foo\bar {
    */
   abstract class fooBar implements fooBaz {
     use Line;
+    use foo, bar {
+      foo::baz insteadof bar;
+      bar::foo as baz;
+    }
     const FOOBAR = 'BARFOO';
     protected $dwarf = [
       'sneezy' => 'achoum',
@@ -31,6 +36,7 @@ namespace foo\bar {
       // do not wanna do
       foreach($this->dwarf as $name => $greeting) {
         echo "Hey ho $name, $greeting !";
+        continue $foo;
       }
       throw new \ComeToHome('Thats it');
     }
@@ -40,6 +46,11 @@ namespace foo\bar {
     public function Am_I_Uggly() : bool;
     protected function broken() : bool;
     static protected function isWhiteSnowAlive() : bool;
+  }
+
+  function iter() {
+    yield 'ator' => $foo;
+    yield from iter(50);
   }
 
   trait Line {
@@ -72,7 +83,7 @@ next:
     } else {
       $guy->kick();
     }
-    if ($index < count($persians)) goto next;
+    if ((int)$index < count($persians)) goto next;
 
     return 300;
   }
@@ -104,14 +115,20 @@ next:
     } else {
       for($i = 0; $i < count($banana); $i++) {
         $x %= ($i * 2) / ($i - 1);
-        $what = $banana[$i] ? 'yes!': 'noo!';
+        $what = $banana[++$i] ? 'yes!': 'noo!';
       }
-      return false;
+      return $foo ?? false;
     }
     return empty(namespace\FOOBAR);
   };
 
-  die($foo());
-  eval("return 'This is madness!';");
+  die($foo(<<<'BAR'
+  $foo + $bar
+BAR
+));
+  eval(<<<FOO
+  return 'This is madness!';
+FOO
+);
 
 }
