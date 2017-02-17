@@ -35,7 +35,7 @@ module.exports = function (node, indent) {
   }
 
   // It lacks body. Must be an abstract method declaration.
-  if (node.isAbstract) {
+  if (node.isAbstract || !node.body) {
     return str + ';';
   }
 
