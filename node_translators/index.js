@@ -37,6 +37,7 @@ module.exports = CodeGen;
 CodeGen.prototype.array = require("./array.js");
 CodeGen.prototype.assign = require("./assign.js");
 CodeGen.prototype.bin = require("./bin.js");
+CodeGen.prototype.boolean = require("./boolean.js");
 CodeGen.prototype.bool = require("./bool.js");
 CodeGen.prototype.break = require("./break.js");
 CodeGen.prototype.call = require("./call.js");
