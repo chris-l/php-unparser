@@ -23,7 +23,8 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
         return this[node.kind](node, indent);
       }
       throw new Error(
-        'Unhandled node type [' + node.kind + ']'
+        'Unhandled node type [' + node.kind + ']' +
+        (node.pos ? ' at line ' + node.pos.start.line : '')
       );
     }
     throw new Error(
@@ -65,6 +66,7 @@ CodeGen.prototype.identifier = require("./identifier.js");
 CodeGen.prototype.if = require("./if.js");
 CodeGen.prototype.include = require("./include.js");
 CodeGen.prototype.interface = require("./interface.js");
+CodeGen.prototype.isset = require("./isset.js");
 CodeGen.prototype.label = require("./label.js");
 CodeGen.prototype.list = require("./list.js");
 CodeGen.prototype.magic = require("./magic.js");
@@ -92,6 +94,8 @@ CodeGen.prototype.throw = require("./throw.js");
 CodeGen.prototype.trait = require("./trait.js");
 CodeGen.prototype.traituse = require("./traituse.js");
 CodeGen.prototype.try = require("./try.js");
+CodeGen.prototype.unary = require("./unary.js");
+CodeGen.prototype.unset = require("./unset.js");
 CodeGen.prototype.usegroup = require("./usegroup.js");
 CodeGen.prototype.variable = require("./variable.js");
 CodeGen.prototype.while = require("./while.js");

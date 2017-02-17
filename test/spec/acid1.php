@@ -100,13 +100,14 @@ next:
       do {
         echo "Caesar: here I was\n";
       } while(false);
-    } else if ($something instanceof Banana) {
+    } else if (!($something instanceof Banana)) {
       try {
         $bipbip = clone $something;
         $bipbip->crazy()->boom([1, 2, 3]);
       } catch(Coco|Nut $ex) {
         $ex->printStackTrace();
       } finally {
+        isset($bipbip, $ex) && unset($bipbip, $ex);
         return (new class extends fooBar {
           function goatIt() {
             return "meeeh";
