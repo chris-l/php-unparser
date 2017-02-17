@@ -1,26 +1,27 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 var doBody = require('./helper/body');
+var identifier = require('./helper/identifier');
 
 module.exports = function (node, indent) {
-  var codegen, str;
+  var codegen, str = '';
   codegen = this.process.bind(this);
 
   // Start
-  str = node[2] === -1 ? 'final ' : '';
-  str += 'interface ' + node[1];
+  if (node.isFinal) {
+    str = 'final ';
+  }
+  str += 'interface ' + node.name;
 
-  if (node[3]) {
-    str += ' implements ' + node[3].map(function (x) {
-      return x.join('\\');
-    }).join(',' + this.ws);
+  if (node.implements) {
+    str += ' implements ' + node.implements.map(identifier).join(',' + this.ws);
   }
 
   // begin curly brace
   str += this.nl + indent + '{' + this.nl;
 
   // interface body
-  str += doBody(codegen, indent, this.indent, this.nl, node[4]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body);
 
   // end curly brace
   str += indent + '}\n';
