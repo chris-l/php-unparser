@@ -107,7 +107,7 @@ next:
       } catch(Coco|Nut $ex) {
         $ex->printStackTrace();
       } finally {
-        isset($bipbip, $ex) && unset($bipbip, $ex);
+        if (isset($bipbip, $ex)) unset($bipbip, $ex);
         return (new class extends fooBar {
           function goatIt() {
             return "meeeh";

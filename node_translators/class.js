@@ -15,7 +15,10 @@ module.exports = function (node, indent) {
     str += 'final ';
   }
 
-  str += 'class ' + node.name;
+  str += 'class';
+  if (node.name) {
+    str += ' ' + node.name;
+  }
 
   if (node.extends) {
     str += ' extends ' + codegen(node.extends, indent);
@@ -28,13 +31,21 @@ module.exports = function (node, indent) {
   }
 
   // begin curly brace
-  str += this.nl + indent + '{' + this.nl;
+  if (node.name) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
+  }
+
 
   // class body
   str += doBody(codegen, indent, this.indent, this.nl, node.body);
 
   // end curly brace
-  str += indent + '}\n';
+  str += indent + '}';
+  if (node.name) {
+    str += this.nl;
+  }
 
   return str;
 };

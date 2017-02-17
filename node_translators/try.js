@@ -28,9 +28,9 @@ module.exports = function (node, indent) {
     return out;
   }, this).join('');
 
-  if (node.allways) {
+  if (node.always) {
     str += this.ws + 'finally' + this.ws + '{' + this.nl;
-    str += doBody(codegen, indent, this.indent, this.nl, node.allways.children);
+    str += doBody(codegen, indent, this.indent, this.nl, node.always.children);
     str += indent + '}';
   }
 

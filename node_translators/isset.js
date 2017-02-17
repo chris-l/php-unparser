@@ -4,5 +4,5 @@
 var params = require('./helper/parameters');
 
 module.exports = function (node, indent) {
-  return 'isset' + params(node.arguments, indent, this);
+  return 'isset(' + params(node.arguments, indent, this) + ')';
 };
