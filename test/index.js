@@ -43,6 +43,9 @@ var testFile = function(filename, isDebug) {
           parser: {
             extractDoc: true,
             debug: isDebug
+          },
+          ast: {
+            withPositions: true
           }
         });
         var code = unparse(ast);
