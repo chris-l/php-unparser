@@ -54,6 +54,7 @@ CodeGen.prototype.doc = require("./doc.js");
 CodeGen.prototype.do = require("./do.js");
 CodeGen.prototype.echo = require("./echo.js");
 CodeGen.prototype.encapsed = require("./encapsed.js");
+CodeGen.prototype.eval = require("./eval.js");
 CodeGen.prototype.exit = require("./exit.js");
 CodeGen.prototype.foreach = require("./foreach.js");
 CodeGen.prototype.for = require("./for.js");
