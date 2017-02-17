@@ -44,6 +44,7 @@ CodeGen.prototype.call = require("./call.js");
 CodeGen.prototype.cast = require("./cast.js");
 CodeGen.prototype.classconstant = require("./classconstant.js");
 CodeGen.prototype.class = require("./class.js");
+CodeGen.prototype.clone = require("./clone.js");
 CodeGen.prototype.closure = require("./closure.js");
 CodeGen.prototype.constant = require("./constant.js");
 CodeGen.prototype.constref = require("./constref.js");
