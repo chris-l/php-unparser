@@ -4,7 +4,6 @@
 module.exports = function (node) {
   if (node.resolution === 'rn') {
     return 'namespace\\' + node.name;
-  } else {
-    return node.name
   }
+  return node.name;
 };

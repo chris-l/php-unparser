@@ -16,9 +16,11 @@ module.exports = function processIf(node, indent, inner) {
       str += this.ws + '{' + this.nl;
     }
     str += body(
-      codegen, indent, this.indent, this.nl,
-      node.body.children ?
-      node.body.children : [node.body]
+      codegen,
+      indent,
+      this.indent,
+      this.nl,
+      node.body.children || [node.body]
     );
     if (!node.shortForm) {
       str += indent + '}';
@@ -35,9 +37,8 @@ module.exports = function processIf(node, indent, inner) {
       if (node.alternate.type === 'if') {
         if (node.shortForm) {
           return 'else' + processIf.call(that, node.alternate, indent, true);
-        } else {
-          return that.ws + 'else' + processIf.call(that, node.alternate, indent, true);
         }
+        return that.ws + 'else' + processIf.call(that, node.alternate, indent, true);
       }
 
       // is an "else"
@@ -48,9 +49,11 @@ module.exports = function processIf(node, indent, inner) {
         out += that.ws + '{' + that.nl;
       }
       out += body(
-        codegen, indent, that.indent, that.nl,
-        node.alternate.children ?
-        node.alternate.children : [node.alternate]
+        codegen,
+        indent,
+        that.indent,
+        that.nl,
+        node.alternate.children || [node.alternate]
       );
       if (!node.shortForm) {
         out += indent + '}' + that.nl;

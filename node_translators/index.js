@@ -1,4 +1,4 @@
-/*jslint node: true, indent: 2, nomen:true */
+/*jslint node: true, indent: 2, nomen:true, evil: true */
 'use strict';
 
 function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets) {

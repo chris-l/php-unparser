@@ -44,9 +44,11 @@ module.exports = function (node, indent) {
   }
 
   str += body(
-    codegen, indent, this.indent, this.nl,
-    node.body.children ?
-    node.body.children : [node.body]
+    codegen,
+    indent,
+    this.indent,
+    this.nl,
+    node.body.children || [node.body]
   );
   if (this.shortForm) {
     str += indent + 'endfor;';
