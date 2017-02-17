@@ -68,5 +68,5 @@ var fIndex = process.argv.indexOf('--file');
 if (fIndex > -1) {
   testFile(process.argv[fIndex + 1], true);
 } else {
-  scanDir(__dirname + '/magento2');
+  scanDir(__dirname + '/spec');
 }
