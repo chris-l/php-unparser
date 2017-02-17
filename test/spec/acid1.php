@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+include_once 'foo.php';
 
 /** a comment before the namespace comment **/
 namespace foo\bar {

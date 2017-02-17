@@ -63,6 +63,7 @@ CodeGen.prototype.global = require("./global.js");
 CodeGen.prototype.goto = require("./goto.js");
 CodeGen.prototype.identifier = require("./identifier.js");
 CodeGen.prototype.if = require("./if.js");
+CodeGen.prototype.include = require("./include.js");
 CodeGen.prototype.interface = require("./interface.js");
 CodeGen.prototype.label = require("./label.js");
 CodeGen.prototype.list = require("./list.js");
