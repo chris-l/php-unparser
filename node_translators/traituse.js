@@ -7,7 +7,7 @@ var identifier = require('./helper/identifier');
  * Usage declaration
  */
 module.exports = function (node, indent) {
-  var str = indent + 'use' + this.ws, items = [], glue, codegen;
+  var str = 'use' + this.ws, items = [], glue, codegen;
   codegen = this.process.bind(this);
   node.traits.forEach(function (item) {
     items.push(

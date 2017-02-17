@@ -85,7 +85,7 @@ next:
     }
     if ((int)$index < count($persians)) goto next;
 
-    return 300;
+    return 300 | 5;
   }
 
   $foo = function(?int $bar = 42) use($something) : bool {

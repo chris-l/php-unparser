@@ -5,7 +5,7 @@
  * Usage declaration
  */
 module.exports = function (node, indent) {
-  var str = indent + 'use' + this.ws, items = [], glue;
+  var str = 'use' + this.ws, items = [], glue;
   if (node.type) {
     str += node.type + this.ws;
   }

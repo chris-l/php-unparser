@@ -1,8 +1,8 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 var noSemiColons = [
-  'class', 'namespace', 'try', 'if', 'switch',
-  'for', 'foreach', 'function', 'while', 'doc',
+  'class', 'interface', 'trait', 'namespace', 'try', 'if', 'switch',
+  'for', 'foreach', 'function', 'method', 'while', 'doc',
   'comment', 'label', 'declare', 'usegroup', 'traituse'
 ];
 module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) {
@@ -13,7 +13,13 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
     if (expr === null) {
       return '';
     }
-    var line = indentation + codegen(expr, indentation);
+    var line;
+    if (expr.kind === 'label') {
+      line = codegen(expr, indentation);
+    } else {
+      line = indentation + codegen(expr, indentation);
+    }
+
 
     // This expressions don't require semicolons
     if (noSemiColons.indexOf(expr.kind) === -1) {

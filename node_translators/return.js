@@ -4,10 +4,10 @@
 module.exports = function (node, indent) {
   var codegen;
 
-  if (!node.what) {
+  if (!node.expr) {
     return 'return';
   }
 
   codegen = this.process.bind(this);
-  return 'return ' + codegen(node.what, indent);
+  return 'return ' + codegen(node.expr, indent);
 };

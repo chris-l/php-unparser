@@ -27,7 +27,7 @@ module.exports = function (node, indent) {
 
   str += this.nl + indent + '{' + this.nl;
   str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
-  str += indent + '}';
+  str += indent + '}' + this.nl;
 
   return str;
 };

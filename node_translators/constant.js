@@ -9,7 +9,7 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
 
   // a namespace constant (name, value)
-  str = indent + 'const ';
+  str = 'const ';
   str += node.name;
   str += this.ws + '=' + this.ws;
   str += codegen(node.value, indent) + ';';
