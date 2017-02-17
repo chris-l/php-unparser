@@ -23,7 +23,7 @@ module.exports = function (node, indent) {
     str += items.join(glue) + this.nl;
     str += indent + '};' + this.nl;
   } else {
-    str += items[0] + ';' + this.nl;
+    str += items[0] + this.nl;
   }
   return str;
 };

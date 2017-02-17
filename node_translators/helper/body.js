@@ -1,9 +1,10 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 var noSemiColons = [
-  'class', 'interface', 'trait', 'namespace', 'try', 'if', 'switch',
-  'for', 'foreach', 'function', 'method', 'while', 'doc',
-  'comment', 'label', 'declare', 'usegroup', 'traituse'
+  'class', 'interface', 'trait', 'namespace', 'try',
+  'if', 'switch', 'for', 'foreach', 'function', 'method',
+  'while', 'doc', 'comment', 'label', 'declare',
+  'usegroup', 'traituse', 'inline'
 ];
 module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) {
   var str, indentation;

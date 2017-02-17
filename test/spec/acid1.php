@@ -1,9 +1,12 @@
+#!/usr/bin/php
+<?= php_version(); ?>
 <?php
 declare(strict_types=1);
 include_once 'foo.php';
 
 /** a comment before the namespace comment **/
 namespace foo\bar {
+  ?>Hello<?php
   # single line comment
   use function foo {
     // sample code
@@ -98,7 +101,9 @@ next:
         } else continue;
       }
       do {
-        echo "Caesar: here I was\n";
+        ?>
+        Caesar: here I was
+        <?php
       } while(false);
     } else if (!($something instanceof Banana)) {
       try {
