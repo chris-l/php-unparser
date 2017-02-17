@@ -2,6 +2,7 @@
 'use strict';
 var doBody = require('./helper/body');
 var args = require('./helper/arguments');
+var identifier = require('./helper/identifier');
 
 // params, isRef, use, returnType
 module.exports = function (node, indent) {
@@ -10,26 +11,30 @@ module.exports = function (node, indent) {
 
   // function header
   str = 'function' + this.ws;
-  if (node[2]) {
+  if (node.byref) {
     str += '&';
   }
-  str += args(node[1], indent, this);
+  str += args(node.arguments, indent, this);
 
   // use statement
-  if (node[3] && node[3].length > 0) {
-    useArgs = node[3].map(function (arg) {
-      return arg[1];
+  if (node.uses && node.uses.length > 0) {
+    useArgs = node.uses.map(function (arg) {
+      return arg.name;
     });
     str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
   }
 
   // php7 / return type
-  if (node[4]) {
-    str += this.ws + ':' + this.ws + node[4].join('\\');
+  if (node.type) {
+    str += this.ws + ':' + this.ws;
+    if (node.nullable) {
+      str += '?';
+    }
+    str += identifier(node.type);
   }
 
   str += this.ws + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node[5]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
   str += indent + '}';
   return str;
 };
