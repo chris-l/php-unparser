@@ -2,25 +2,31 @@
 'use strict';
 var doBody = require('./helper/body');
 var args = require('./helper/arguments');
+var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body
 module.exports = function (node, indent) {
   var codegen, str;
   codegen = this.process.bind(this);
 
-  str = 'function ' + node[1];
-  if (node[3]) {
+  str = 'function ';
+  if (node.byref) {
     str += '&';
   }
-  str += args(node[2], indent, this);
+  str += node.name;
+  str += args(node.arguments, indent, this);
 
   // php7 / return type
-  if (node[4]) {
-    str += this.ws + ':' + this.ws + node[4].join('\\');
+  if (node.type) {
+    str += this.ws + ':' + this.ws;
+    if (node.nullable) {
+      str += '?';
+    }
+    str += identifier(node.type);
   }
 
   str += this.nl + indent + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node[5]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
   str += indent + '}';
 
   return str;
