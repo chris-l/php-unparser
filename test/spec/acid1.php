@@ -72,14 +72,14 @@ namespace foo\bar {
   }
 
   // this is SPARTA !
-  function sparta() : int {
+  function sparta() : ?int {
     global $persians;
 
     $index = -1;
 next:
     $guy = $persians[++$index];
     if(rand(0, 10)>5) {
-      $guy->kill();
+      @$guy->kill();
     } else {
       $guy->kick();
     }
