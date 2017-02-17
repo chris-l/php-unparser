@@ -83,6 +83,7 @@ CodeGen.prototype.propertylookup = require("./propertylookup.js");
 CodeGen.prototype.retif = require("./retif.js");
 CodeGen.prototype.return = require("./return.js");
 CodeGen.prototype.silent = require("./silent.js");
+CodeGen.prototype.static = require("./static.js");
 CodeGen.prototype.staticlookup = require("./staticlookup.js");
 CodeGen.prototype.string = require("./string.js");
 CodeGen.prototype.switch = require("./switch.js");
