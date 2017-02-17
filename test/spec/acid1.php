@@ -78,7 +78,7 @@ namespace foo\bar {
     $index = -1;
 next:
     $guy = $persians[++$index];
-    if(rand(0, 10)>5) {
+    if(rand(0, 10)>5 || false) {
       @$guy->kill();
     } else {
       $guy->kick();
