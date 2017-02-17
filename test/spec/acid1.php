@@ -18,7 +18,7 @@ namespace foo\bar {
   /**
    * a class
    */
-  abstract class fooBar implements fooBaz {
+  abstract class fooBar implements namespace\fooBaz {
     use Line;
     use foo, bar {
       foo::baz insteadof bar;
@@ -67,7 +67,7 @@ namespace foo\bar {
       return $body . ($arrow ? '>' : '');
     }
     private function shuut() {
-      return null;
+      return __NAMESPACE__;
     }
   }
 
@@ -93,7 +93,7 @@ next:
     if($bar > fooBar::NUMBAR) {
       while($bar) {
         if ((int)calculateMeaningOfLife() === 42) {
-          break;
+          break foo;
         } else continue;
       }
       do {
@@ -113,15 +113,28 @@ next:
         })->goatIt();
       }
     } else {
-      for($i = 0; $i < count($banana); $i++) {
+      for($i = 0; $i < count($this->banana); $i++) {
         $x %= ($i * 2) / ($i - 1);
-        $what = $banana[++$i] ? 'yes!': 'noo!';
+        $what = $this->$x[++$i] ? 'yes!': 'noo!';
       }
-      return $foo ?? false;
+      // @todo $this->a_$foo
+      return $$foo ?? false;
     }
     return empty(namespace\FOOBAR);
   };
 
+  if ($foo):
+    echo `bar&`;
+  elseif ($bar):
+    echo `ls -larth`;
+  endif;
+
+  // list version
+  list($a, list($b, $c)) = [1, [2, 3]];
+  print(<<<BAZ
+  Hello world
+BAZ
+);
   die($foo(<<<'BAR'
   $foo + $bar
 BAR
