@@ -3,33 +3,45 @@
 
 var doBody = require('./helper/body');
 var args = require('./helper/arguments');
-var keywords = require('./helper/keywords');
+var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body, flags
 module.exports = function (node, indent) {
-  var codegen, str, that;
-  codegen = this.process.bind(this);
-  that = this;
+  var codegen, str = '';
 
-  str = keywords(node.length === 7 ? node[6] : node[5]) + ' function ';
-
-  if (node[3]) {
+  if (node.isAbstract) {
+    str += 'abstract ';
+  }
+  if (node.isFinal) {
+    str += 'final ';
+  }
+  if (node.isStatic) {
+    str += 'static ';
+  }
+  str += node.visibility + ' function ';
+  if (node.byref) {
     str += '&';
   }
-  str += node[1] + args(node[2], indent, this);
+  str += node.name;
+  str += args(node.arguments, indent, this);
 
   // php7 / return type
-  if (node[4]) {
-    str += this.ws + ':' + this.ws + node[4].join('\\');
+  if (node.type) {
+    str += this.ws + ':' + this.ws;
+    if (node.nullable) {
+      str += '?';
+    }
+    str += identifier(node.type);
   }
 
   // It lacks body. Must be an abstract method declaration.
-  if (node.length === 6) {
+  if (node.isAbstract) {
     return str + ';';
   }
 
+  codegen = this.process.bind(this);
   str += this.nl + indent + '{' + this.nl;
-  str += doBody(codegen, indent, that.indent, that.nl, node[5]);
+  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
   str += indent + '}';
   return str;
 };
