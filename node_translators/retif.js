@@ -2,20 +2,15 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, left, right;
-
+  var codegen, left, right = '';
   codegen = this.process.bind(this);
-  if (node[2]) {
-    left = codegen(node[2], indent);
-    if (node[2][0] === 'retif') {
-      left = '(' + left + ')';
-    }
+  if (node.trueExpr) {
+    left = codegen(node.trueExpr, indent);
   }
-  right = codegen(node[3], indent);
-  if (node[3][0] === 'retif') {
-    right = '(' + right + ')';
+  if (node.falseExpr) {
+    right = codegen(node.falseExpr, indent);
   }
-
-  return codegen(node[1], indent) + this.ws + '?' +
-    (left ? this.ws + left + this.ws : '') + ':' + this.ws + right;
+  return codegen(node.test, indent) + this.ws + '?' +
+    (left ? this.ws + left + this.ws : '') + ':' +
+    (right ? this.ws + right : '');
 };
