@@ -4,9 +4,9 @@
 var doBody = require('./helper/body');
 var identifier = require('./identifier');
 
-function resolveExceptions (items) {
-  var result = [];
-  for(var i = 0; i < items.length; i++) {
+function resolveExceptions(items) {
+  var result = [], i;
+  for (i = 0; i < items.length; i += 1) {
     result.push(identifier(items[i]));
   }
   return result.join('|');

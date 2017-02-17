@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function (args, indent, self) {
-  var codegen, useArgs = [], space, args, raw;
+  var codegen, useArgs = [], space, raw;
 
   codegen = self.process.bind(self);
 

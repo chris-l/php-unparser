@@ -13,7 +13,11 @@ module.exports = function (node, indent) {
     str += this.ws + '{' + this.nl;
   }
   str += doBody(
-    codegen, indent, this.indent, this.nl, node.body.children
+    codegen,
+    indent,
+    this.indent,
+    this.nl,
+    node.body.children || [node.body]
   );
   if (node.shortForm) {
     str += indent + 'endwhile;';

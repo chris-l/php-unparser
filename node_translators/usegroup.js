@@ -5,11 +5,11 @@
  * Usage declaration
  */
 module.exports = function (node, indent) {
-  var str = indent + 'use' + this.ws, items = [];
+  var str = indent + 'use' + this.ws, items = [], glue;
   if (node.type) {
     str += node.type + this.ws;
   }
-  node.items.forEach(function(item) {
+  node.items.forEach(function (item) {
     var useItem = item.name.name;
     if (item.alias) {
       useItem += ' as ' + item.alias;
@@ -18,7 +18,7 @@ module.exports = function (node, indent) {
     items.push(useItem);
   });
   if (node.items.length > 1) {
-    var glue = this.nl +  indent + this.indent;
+    glue = this.nl +  indent + this.indent;
     str += node.name.name + this.ws + '{' + glue;
     str += items.join(glue) + this.nl;
     str += indent + '};' + this.nl;
