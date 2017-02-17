@@ -3,6 +3,7 @@
 
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
-  return 'global ' + node[1].map(function (x) { return codegen(x, indent); }).join(',' + this.ws);
+  return 'global ' + node.items.map(function (x) {
+    return codegen(x, indent);
+  }).join(',' + this.ws);
 };
-
