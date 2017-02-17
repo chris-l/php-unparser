@@ -21,7 +21,11 @@ module.exports = function (node, indent) {
     }
     if (item.body) {
       head += body(
-        codegen, indent + that.indent, that.indent, that.nl, item.body.children
+        codegen,
+        indent + that.indent,
+        that.indent,
+        that.nl,
+        item.body.children || [item.body]
       );
     }
     return head;
