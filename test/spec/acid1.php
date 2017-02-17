@@ -85,7 +85,7 @@ next:
     if(rand(0, 10)>5 || false) {
       @$guy->kill();
     } else {
-      $guy->kick();
+      $guy->kick(...$foo);
     }
     if ((int)$index < count($persians)) goto next;
 

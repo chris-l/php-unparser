@@ -100,6 +100,7 @@ CodeGen.prototype.unary = require("./unary.js");
 CodeGen.prototype.unset = require("./unset.js");
 CodeGen.prototype.usegroup = require("./usegroup.js");
 CodeGen.prototype.variable = require("./variable.js");
+CodeGen.prototype.variadic = require("./variadic.js");
 CodeGen.prototype.while = require("./while.js");
 CodeGen.prototype.yieldfrom = require("./yieldfrom.js");
 CodeGen.prototype.yield = require("./yield.js");
