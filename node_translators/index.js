@@ -76,6 +76,7 @@ CodeGen.prototype.offset = require("./offset.js");
 CodeGen.prototype.post = require("./post.js");
 CodeGen.prototype.print = require("./print.js");
 CodeGen.prototype.program = require("./program.js");
+CodeGen.prototype.property = require("./property.js");
 CodeGen.prototype.propertylookup = require("./propertylookup.js");
 CodeGen.prototype.retif = require("./retif.js");
 CodeGen.prototype.return = require("./return.js");
