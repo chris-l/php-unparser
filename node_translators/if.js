@@ -47,7 +47,11 @@ module.exports = function processIf(node, indent, inner) {
       } else {
         out += that.ws + '{' + that.nl;
       }
-      out += body(codegen, indent, that.indent, that.nl, node.alternate.children);
+      out += body(
+        codegen, indent, that.indent, that.nl,
+        node.alternate.children ?
+        node.alternate.children : [node.alternate]
+      );
       if (!node.shortForm) {
         out += indent + '}' + that.nl;
       }
