@@ -2,10 +2,12 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen, str, items = [];
+  var codegen, str, items = [], k;
   codegen = this.process.bind(this);
-  for(var k in node.what) {
-    items.push(k + '=' + codegen(node.what[k]));
+  for (k in node.what) {
+    if (node.what.hasOwnProperty(k) && node.what[k]) {
+      items.push(k + '=' + codegen(node.what[k]));
+    }
   }
   str = 'declare(' + items.join(',') + ')';
   if (node.mode !== 'none') {
@@ -18,7 +20,7 @@ module.exports = function (node, indent) {
       node.children
     );
     str += indent + '}' + this.nl;
-  } else  {
+  } else {
     str += ';' + this.nl;
     str += require('./helper/body')(
       codegen,
