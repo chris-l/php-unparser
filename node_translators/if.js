@@ -32,21 +32,19 @@ module.exports = function processIf(node, indent, inner) {
   if (node.alternate) {
     str += (function () {
       var out = '';
-
       // is an "elseif"
-      if (node.alternate.type === 'if') {
+      if (node.alternate.kind === 'if') {
         if (node.shortForm) {
-          return 'else' + processIf.call(that, node.alternate, indent, true);
+          return indent + 'else' + processIf.call(that, node.alternate, indent, true);
         }
         return that.ws + 'else' + processIf.call(that, node.alternate, indent, true);
       }
 
       // is an "else"
-      out += that.ws + 'else';
       if (node.shortForm) {
-        out += ':' + that.nl;
+        out += indent + 'else:' + that.nl;
       } else {
-        out += that.ws + '{' + that.nl;
+        out += that.ws + 'else' + that.ws + '{' + that.nl;
       }
       out += body(
         codegen,

@@ -20,6 +20,10 @@ module.exports = function (node, indent, opt) {
     return '<<<\'' + node.label + '\'' + this.nl + body + node.label;
   }
 
+  if (node.type === 'shell') {
+    return '`' + body + '`';
+  }
+
   if (node.isDoubleQuote) {
     return '"' + body + '"';
   }

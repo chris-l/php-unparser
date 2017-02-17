@@ -1,13 +1,10 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
+var identifier = require('./helper/identifier');
 /**
  * Constant usage
  */
 module.exports = function (node) {
-  if (node.name && node.name.kind) {
-    // @fixme : should not be like this
-    return node.name.name;
-  }
-  return node.name;
+  return identifier(node.name);
 };

@@ -2,7 +2,7 @@
 'use strict';
 
 var doBody = require('./helper/body');
-var identifier = require('./identifier');
+var identifier = require('./helper/identifier');
 
 function resolveExceptions(items) {
   var result = [], i;
