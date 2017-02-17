@@ -75,6 +75,7 @@ CodeGen.prototype.ns = require("./ns.js");
 CodeGen.prototype.number = require("./number.js");
 CodeGen.prototype.offsetlookup = require("./offsetlookup.js");
 CodeGen.prototype.post = require("./post.js");
+CodeGen.prototype.pre = require("./pre.js");
 CodeGen.prototype.print = require("./print.js");
 CodeGen.prototype.program = require("./program.js");
 CodeGen.prototype.property = require("./property.js");
