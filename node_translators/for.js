@@ -8,8 +8,8 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
 
-  if (node[1]) {
-    str += node[1].map(function (x) {
+  if (node.init) {
+    str += node.init.map(function (x) {
       if (x) {
         return codegen(x, indent);
       }
@@ -18,8 +18,8 @@ module.exports = function (node, indent) {
   }
   str += ';' + this.ws;
 
-  if (node[2]) {
-    str += node[2].map(function (x) {
+  if (node.test) {
+    str += node.test.map(function (x) {
       if (x) {
         return codegen(x, indent);
       }
@@ -28,23 +28,30 @@ module.exports = function (node, indent) {
   }
   str += ';' + this.ws;
 
-  if (node[3]) {
-    str += node[3].map(function (x) {
+  if (node.increment) {
+    str += node.increment.map(function (x) {
       if (x) {
         return codegen(x, indent);
       }
       return '';
     }).join(',' + this.ws);
   }
-  str += ')' + this.ws + '{' + this.nl;
-
-  if (typeof node[4][0] === 'string') {
-    node[4] = [node[4]];
+  str += ')';
+  if (this.shortForm) {
+    str += ':' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
   }
-  str += body(codegen, indent, this.indent, this.nl, node[4]);
-  str += indent + '}';
 
+  str += body(
+    codegen, indent, this.indent, this.nl,
+    node.body.children ?
+    node.body.children : [node.body]
+  );
+  if (this.shortForm) {
+    str += indent + 'endfor;';
+  } else {
+    str += indent + '}';
+  }
   return str;
 };
-
-
