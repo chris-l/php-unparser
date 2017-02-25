@@ -10,7 +10,7 @@ module.exports = function (node, indent) {
     str += node.type + this.ws;
   }
   node.items.forEach(function (item) {
-    var useItem = item.name.name;
+    var useItem = item.name;
     if (item.alias) {
       useItem += ' as ' + item.alias;
     }
@@ -19,7 +19,7 @@ module.exports = function (node, indent) {
   });
   if (node.items.length > 1) {
     glue = this.nl +  indent + this.indent;
-    str += node.name.name + this.ws + '{' + glue;
+    str += node.name + this.ws + '{' + glue;
     str += items.join(glue) + this.nl;
     str += indent + '};' + this.nl;
   } else {

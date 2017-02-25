@@ -18,7 +18,7 @@ module.exports = function (node) {
       node.children.length === 1 &&
       node.children[0].kind === 'namespace'
   ) {
-    return str + 'namespace ' + node.children[0].name.name + ';' +
+    return str + 'namespace ' + node.children[0].name + ';' +
       this.nl + this.nl +
       body(
         codegen,
