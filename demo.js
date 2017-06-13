@@ -10,12 +10,13 @@
   codeEle = document.querySelector('#code');
 
   function changeCode() {
-    var code, output;
+    var code, output, ast;
 
     code = codeEle.value;
     output = document.querySelector('#output');
     try {
-      output.textContent = phpUnparser(phpParser.parseEval(code, { parser : { extractDoc: true }}));
+      ast = phpParser.parseEval(code, { parser : { extractDoc: true }});
+      output.textContent = phpUnparser(ast);
       Prism.highlightAll();
     } catch (e) {
       output.textContent = '***Error***\nThe entered string seems to be invalid php';
