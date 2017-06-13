@@ -2,7 +2,7 @@
 /*jslint indent: 2, regexp:true*/
 /*global phpUnparser, document, Prism*/
 
-(function () {
+(function (global) {
   'use strict';
   var codeEle, phpParser;
 
@@ -10,13 +10,13 @@
   codeEle = document.querySelector('#code');
 
   function changeCode() {
-    var code, output, ast;
+    var code, output;
 
     code = codeEle.value;
     output = document.querySelector('#output');
     try {
-      ast = phpParser.parseEval(code, { parser : { extractDoc: true }});
-      output.textContent = phpUnparser(ast);
+      global.ast = phpParser.parseEval(code, { parser : { extractDoc: true }});
+      output.textContent = phpUnparser(global.ast);
       Prism.highlightAll();
     } catch (e) {
       output.textContent = '***Error***\nThe entered string seems to be invalid php';
@@ -28,4 +28,4 @@
   setTimeout(function () {
     changeCode();
   }, 1000);
-}());
+}(this));
