@@ -6,5 +6,5 @@ var identifier = require('./helper/identifier');
  * Constant usage
  */
 module.exports = function (node) {
-  return identifier(node.name);
+  return identifier(node);
 };
