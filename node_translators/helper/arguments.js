@@ -18,7 +18,7 @@ function processElement(indent, ws, codegen) {
       str += '...';
     }
 
-    str += arg.name; // name
+    str += '$' + arg.name; // name
 
     if (arg.value) { // default value
       str += ws + '=' + ws + codegen(arg.value, indent);

@@ -10,7 +10,7 @@ module.exports = function property(node, indent) {
     str += 'static ';
   }
   str += node.visibility;
-  str += ' ' + node.name;
+  str += ' $' + node.name;
   if (node.value) {
     codegen = this.process.bind(this);
     str += ' = ' + codegen(node.value, indent);

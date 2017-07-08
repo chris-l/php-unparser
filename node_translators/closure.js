@@ -19,7 +19,7 @@ module.exports = function (node, indent) {
   // use statement
   if (node.uses && node.uses.length > 0) {
     useArgs = node.uses.map(function (arg) {
-      return arg.name;
+      return '$' + arg.name;
     });
     str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
   }
