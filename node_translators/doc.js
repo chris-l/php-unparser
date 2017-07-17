@@ -2,5 +2,12 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  return this.nl + indent + node[1];
+  if (node.isDoc) {
+    var body = node.lines.join(this.nl + indent + ' * ');
+    if (body.substring(body.length - 3) === ' * ') {
+      body = body.substring(0, body.length - 3);
+    }
+    return this.nl + indent + '/** ' + body + ' */';
+  }
+  return this.nl + indent + '// ' + node.lines.join(this.nl + indent + '// ');
 };

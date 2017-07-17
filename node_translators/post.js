@@ -3,11 +3,5 @@
 
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
-  if (node[1] === '+') {
-    return codegen(node[2], indent) + '++';
-  }
-  if (node[1] === '-') {
-    return codegen(node[2], indent) + '--';
-  }
+  return codegen(node.what, indent) + node.type + node.type;
 };
-

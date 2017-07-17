@@ -1,55 +1,33 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 var doBody = require('./helper/body');
+var args = require('./helper/arguments');
+var identifier = require('./helper/identifier');
 
-module.exports = function (node, indent, opt) {
-  var codegen, str, args, useArgs, that, space, listArgs;
-  opt = opt || {};
+// name, params, isRef, returnType, body
+module.exports = function (node, indent) {
+  var codegen, str;
   codegen = this.process.bind(this);
-  that = this;
 
-  str = 'function';
-  str += (node[1]) ? ' ' + node[1] : this.ws;
-  function processElement(indent) {
-    return function (arg) {
-      if (arg[2].length > 0) {
-        return arg[0] + that.ws + '=' + that.ws + codegen(arg[2], indent);
-      }
-      return arg[0];
-    };
+  str = 'function ';
+  if (node.byref) {
+    str += '&';
+  }
+  str += node.name;
+  str += args(node.arguments, indent, this);
+
+  // php7 / return type
+  if (node.type) {
+    str += this.ws + ':' + this.ws;
+    if (node.nullable) {
+      str += '?';
+    }
+    str += identifier(node.type);
   }
 
-  args = node[2].map(processElement(indent));
-  if (args.join().length > 80) {
-    space = this.nl + indent + this.indent;
-    args = node[2].map(processElement(indent + this.indent));
-    listArgs = space + args.join(',' + space) + this.nl + indent;
-  } else {
-    listArgs = args.join(',' + this.ws);
-  }
+  str += this.nl + indent + '{' + this.nl;
+  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+  str += indent + '}' + this.nl;
 
-  str += '(' + listArgs + ')';
-  if (node[4] && node[4].length > 0) {
-    useArgs = node[4].map(function (arg) {
-      return arg[1];
-    });
-    str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
-  }
-
-  // It lacks body. Must be an abstract method declaration.
-  if (!node[6]) {
-    return str + ';';
-  }
-
-  if (opt.notClosure === true) {
-    str += this.nl + indent + '{' + this.nl;
-  } else {
-    str += this.ws + '{' + this.nl;
-  }
-
-  str += doBody(codegen, indent, that.indent, that.nl, node[6]);
-  str += indent + '}';
   return str;
 };
-
-

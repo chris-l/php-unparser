@@ -2,5 +2,6 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  return this.nl + indent + node[1].join('');
+  var codegen = this.process.bind(this);
+  return 'print ' + codegen(node.arguments, indent);
 };

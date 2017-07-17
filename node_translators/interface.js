@@ -1,59 +1,27 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 var doBody = require('./helper/body');
-var addKeywords = require('./helper/keywords');
+var identifier = require('./helper/identifier');
 
 module.exports = function (node, indent) {
-  var codegen, str, that, sections;
+  var codegen, str = '';
   codegen = this.process.bind(this);
-  sections = node[4];
-  that = this;
 
   // Start
-  str = node[2] === -1 ? 'final ' : '';
-  str += 'interface ' + node[1];
+  if (node.isFinal) {
+    str = 'final ';
+  }
+  str += 'interface ' + node.name;
 
-  if (node[3]) {
-    str += ' implements ' + node[3].map(function (x) {
-      return x.join('\\');
-    }).join(',' + that.ws);
+  if (node.implements) {
+    str += ' implements ' + node.implements.map(identifier).join(',' + this.ws);
   }
 
   // begin curly brace
   str += this.nl + indent + '{' + this.nl;
 
-  /**
-   * Prepare constants
-   */
-  str += sections.constants.map(function (prop) {
-    var out = indent + that.indent;
-
-    // handle doc decoration
-    if (prop[0] === 'doc') {
-      out += prop[1] + that.nl + indent + that.indent;
-      prop = prop[2];
-    }
-
-    return out + 'const ' + prop[0][0] + that.ws + '=' +
-      that.ws + codegen(prop[0][1], indent) + ';';
-  }).join(this.nl) + this.nl;
-
-  /**
-   * Prepare methods
-   */
-  str += '\n' + sections.methods.map(function (method) {
-    var out = indent + that.indent;
-
-    // handle doc decoration
-    if (method[0] === 'doc') {
-      out += method[1] + that.nl + indent + that.indent;
-      method = method[2];
-    }
-
-    out += addKeywords(method[6]);
-    out += codegen(method.slice(0, 6), indent + that.indent, { notClosure : true });
-    return out;
-  }).join(this.nl + this.nl) + this.nl;
+  // interface body
+  str += doBody(codegen, indent, this.indent, this.nl, node.body);
 
   // end curly brace
   str += indent + '}\n';

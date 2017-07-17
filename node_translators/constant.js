@@ -2,8 +2,17 @@
 'use strict';
 
 /**
- * Constant usage
+ * Constant declaration
  */
-module.exports = function (node) {
-  return node[1];
+module.exports = function (node, indent) {
+  var codegen, str;
+  codegen = this.process.bind(this);
+
+  // a namespace constant (name, value)
+  str = 'const ';
+  str += node.name;
+  str += this.ws + '=' + this.ws;
+  str += codegen(node.value, indent) + ';';
+
+  return str;
 };

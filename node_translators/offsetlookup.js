@@ -4,8 +4,6 @@
 module.exports = function (node, indent) {
   var codegen, offset;
   codegen = this.process.bind(this);
-  offset = node[2] ? codegen(node[2], indent) : '';
-
-  return codegen(node[1], indent) + '[' + offset + ']';
+  offset = node.offset ? codegen(node.offset, indent) : '';
+  return codegen(node.what, indent) + '[' + offset + ']';
 };
-

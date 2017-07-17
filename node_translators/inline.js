@@ -2,6 +2,5 @@
 'use strict';
 
 module.exports = function (node) {
-  return node[1].join('\\');
+  return '?>' + node.value + '<?php' + this.nl;
 };
-

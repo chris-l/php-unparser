@@ -3,7 +3,5 @@
 
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
-
-  return node[1] + codegen(node[2], indent);
+  return node.type + codegen(node.what, indent);
 };
-

@@ -3,11 +3,11 @@
 
 module.exports = function (node, indent) {
   var codegen;
-  codegen = this.process.bind(this);
 
-  if (node[1] === null) {
+  if (!node.expr) {
     return 'return';
   }
-  return 'return ' + codegen(node[1], indent);
-};
 
+  codegen = this.process.bind(this);
+  return 'return ' + codegen(node.expr, indent);
+};

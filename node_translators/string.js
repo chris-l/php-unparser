@@ -4,8 +4,7 @@
 module.exports = function (node, indent, opt) {
   opt = opt || {};
   if (opt.raw) {
-    return node[1];
+    return node.value;
   }
-  return JSON.stringify(node[1]);
+  return JSON.stringify(node.value).replace(/\$/g, '\\$');
 };
-

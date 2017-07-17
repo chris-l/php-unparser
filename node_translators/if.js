@@ -2,36 +2,66 @@
 'use strict';
 var body = require('./helper/body');
 
-module.exports = function processIf(node, indent) {
+module.exports = function processIf(node, indent, inner) {
   var codegen, str, that = this;
 
   codegen = this.process.bind(this);
-  if (typeof node[2][0] === 'string') {
-    node[2] = [node[2]];
+
+  str = 'if' + this.ws + '(' + codegen(node.test, indent) + ')';
+
+  if (node.body) {
+    if (node.shortForm) {
+      str += ':' + this.nl;
+    } else {
+      str += this.ws + '{' + this.nl;
+    }
+    str += body(
+      codegen,
+      indent,
+      this.indent,
+      this.nl,
+      node.body.children || [node.body]
+    );
+    if (!node.shortForm) {
+      str += indent + '}';
+    }
+  } else if (!node.alternate) {
+    return str + ';';
   }
 
-  str = 'if' + this.ws + '(' + codegen(node[1], indent) + ')' + this.ws + '{' + this.nl +
-    body(codegen, indent, this.indent, this.nl, node[2]) + indent + '}';
-
-  if (node[3]) {
+  if (node.alternate) {
     str += (function () {
       var out = '';
-
       // is an "elseif"
-      if (node[3][0] === 'if') {
-        return that.ws + 'else' + processIf.call(that, node[3], indent);
-      }
-
-      if (typeof node[3][0] === 'string') {
-        node[3] = [node[3]];
+      if (node.alternate.kind === 'if') {
+        if (node.shortForm) {
+          return indent + 'else' + processIf.call(that, node.alternate, indent, true);
+        }
+        return that.ws + 'else' + processIf.call(that, node.alternate, indent, true);
       }
 
       // is an "else"
-      out += that.ws + 'else' + that.ws + '{' + that.nl;
-      out += body(codegen, indent, that.indent, that.nl, node[3]) + indent + '}' + that.nl;
+      if (node.shortForm) {
+        out += indent + 'else:' + that.nl;
+      } else {
+        out += that.ws + 'else' + that.ws + '{' + that.nl;
+      }
+      out += body(
+        codegen,
+        indent,
+        that.indent,
+        that.nl,
+        node.alternate.children || [node.alternate]
+      );
+      if (!node.shortForm) {
+        out += indent + '}' + that.nl;
+      }
       return out;
     }());
   }
+
+  if (node.shortForm && !inner) {
+    str += indent + 'endif;' + this.nl;
+  }
   return str;
 };
-

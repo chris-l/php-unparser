@@ -16,19 +16,18 @@ module.exports = function (node, indent) {
     };
   }
 
-  elements = node[1].map(processElement(indent));
+  elements = node.items.map(processElement(indent));
 
   if (elements.join().length > 80) {
     space = that.nl + indent + this.indent;
-    elements = node[1].map(processElement(indent + this.indent));
+    elements = node.items.map(processElement(indent + this.indent));
     body = space + elements.join(',' + space) + that.nl + indent;
   } else {
     body = elements.join(',' + that.ws);
   }
 
-  if (this.shortArray) {
+  if (node.shortForm) {
     return '[' + body + ']';
   }
   return 'array(' + body + ')';
 };
-

@@ -1,17 +1,28 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this),
     str;
 
-  str = 'while' + this.ws + '(' + codegen(node[1], indent) + ')' +
-    this.ws + '{' + this.nl;
-
-  if (typeof node[2][0] === 'string') {
-    node[2] = [node[2]];
+  str = 'while' + this.ws + '(' + codegen(node.test, indent) + ')';
+  if (node.shortForm) {
+    str += ':' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
   }
-  str += require('./helper/body')(codegen, indent, this.indent, this.nl, node[2]);
-  return str + indent + '}';
+  str += doBody(
+    codegen,
+    indent,
+    this.indent,
+    this.nl,
+    node.body.children || [node.body]
+  );
+  if (node.shortForm) {
+    str += indent + 'endwhile;';
+  } else {
+    str += indent + '}';
+  }
+  return str;
 };
-

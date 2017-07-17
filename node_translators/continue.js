@@ -3,8 +3,8 @@
 
 module.exports = function (node, indent) {
   var codegen = this.process.bind(this);
-  if (node[1]) {
-    return 'continue ' + codegen(node[1], indent);
+  if (node.level) {
+    return 'continue ' + codegen(node.level, indent);
   }
 
   return 'continue';

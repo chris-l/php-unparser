@@ -2,11 +2,9 @@
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen = this.process.bind(this);
-  if (node[1]) {
-    return 'break ' + codegen(node[1], indent);
+  if (node.level) {
+    var codegen = this.process.bind(this);
+    return 'break ' + codegen(node.level, indent);
   }
   return 'break';
 };
-
-

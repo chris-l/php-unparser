@@ -1,14 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+var params = require('./helper/parameters');
 
 module.exports = function (node, indent) {
-  var codegen, that, body;
-  codegen = this.process.bind(this);
-  that = this;
-
-  body = node[1].map(function (ele) {
-    return codegen(ele, indent);
-  }).join(',' + that.ws);
-  return 'list(' + body + ')' + this.ws + '=' + this.ws + codegen(node[2], indent);
+  return 'list(' + params(node.arguments, indent, this) + ')';
 };
-

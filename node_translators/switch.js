@@ -6,16 +6,35 @@ module.exports = function (node, indent) {
   var codegen, str, that = this, cases;
 
   codegen = this.process.bind(this);
-  str = 'switch' + this.ws + '(' + codegen(node[1], indent) + ')' + this.ws + '{' + this.nl;
-  cases = node[2].map(function (cas) {
+  str = 'switch' + this.ws + '(' + codegen(node.test, indent) + ')';
+  if (node.shortForm) {
+    str += ':' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
+  }
+  cases = node.body.children.map(function (item) {
     var head;
-    if (cas.condition) {
-      head = indent + that.indent + 'case ' + codegen(cas.condition, indent) + ':' + that.nl;
+    if (item.test) {
+      head = indent + that.indent + 'case ' + codegen(item.test, indent) + ':' + that.nl;
     } else {
       head = indent + that.indent + 'default:' + that.nl;
     }
-    return head + body(codegen, indent + that.indent, that.indent, that.nl, cas.body);
+    if (item.body) {
+      head += body(
+        codegen,
+        indent + that.indent,
+        that.indent,
+        that.nl,
+        item.body.children || [item.body]
+      );
+    }
+    return head;
   });
-  str += cases.join('') + indent + '}';
+  str += cases.join('');
+  if (node.shortForm) {
+    str += indent + 'endswitch;';
+  } else {
+    str += indent + '}';
+  }
   return str;
 };
