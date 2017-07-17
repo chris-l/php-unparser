@@ -6,5 +6,5 @@ module.exports = function (node, indent, opt) {
   if (opt.raw) {
     return node.value;
   }
-  return JSON.stringify(node.value);
+  return JSON.stringify(node.value).replace(/\$/g, '\\$');
 };
