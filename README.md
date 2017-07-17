@@ -15,7 +15,22 @@ It has no dependencies.
 
 ```javascript
 var unparse = require('php-unparser');
-var ast = ["program",[["sys","echo",[["string","hello world"]]]]];
+var ast = {
+  "kind": "program",
+  "children": [
+    {
+      "kind": "echo",
+      "arguments": [
+        {
+          "kind": "string",
+          "value": "hello world",
+          "isDoubleQuote": true
+        }
+      ]
+    }
+  ],
+  "errors": []
+};
 
 console.log(unparse(ast)); // Will output -> echo "hello world";
 ```
