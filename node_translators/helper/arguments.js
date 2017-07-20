@@ -7,7 +7,7 @@ function processElement(indent, ws, codegen) {
     var str = '';
 
     if (arg.type) { // type hint
-      str += codegen(arg.type, indent);
+      str += codegen(arg.type, indent) + ' ';
     }
 
     if (arg.byref) { // byref
