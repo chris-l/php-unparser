@@ -10,6 +10,9 @@ module.exports = function (codegen, currentIndent, indent, nl, body, isProgram) 
   var str, indentation;
 
   indentation = isProgram ? '' : currentIndent + indent;
+  if (!Array.isArray(body)) {
+    body = [body];
+  }
   str = body.map(function (expr) {
     if (expr === null) {
       return '';
