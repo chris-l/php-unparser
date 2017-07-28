@@ -13,6 +13,7 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
   this.forceNamespaceBrackets = forceNamespaceBrackets || false;
 
   this.process = function (node, indent) {
+    var err;
 
     if (node === null) {
       return indent;
@@ -22,15 +23,18 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
       if (typeof this[node.kind] === 'function') {
         return this[node.kind](node, indent);
       }
-      throw new Error(
+      err = new Error(
         'Unhandled node type [' + node.kind + ']' + (
           node.loc ? ' at line ' + node.loc.start.line : ''
         )
       );
+    } else {
+      err = new Error(
+        'Bad AST structure'
+      );
     }
-    throw new Error(
-      'Bad AST structure'
-    );
+    err.node = node;
+    throw err;
   };
 }
 
