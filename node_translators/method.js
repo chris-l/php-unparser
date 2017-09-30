@@ -6,7 +6,7 @@ var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body, flags
-module.exports = function (node, indent) {
+module.exports = function(node, indent) {
   var codegen, str = '';
 
   if (node.isAbstract) {
@@ -44,7 +44,13 @@ module.exports = function (node, indent) {
   }
 
   codegen = this.process.bind(this);
-  str += this.nl + indent + '{' + this.nl;
+
+  if (this.options.bracketsNewLine) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str += '{' + this.nl;
+  }
+
   str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
   str += indent + '}';
   return str;
