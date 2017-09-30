@@ -1,18 +1,20 @@
 /*jslint node: true, indent: 2, nomen:true, evil: true */
 'use strict';
 
-function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets) {
+function CodeGen(options) {
+    
   this.ws = ' ';
-  if (dontUseWhitespaces) {
+  if (options.dontUseWhitespaces) {
     this.ws = '';
   }
+  
+  this.options = options;
+  this.indent = typeof options.indent === 'string' ? options.indent : '    ';
+  this.nl = this.indent !== '' ? '\n' : '';
+  this.shortArray = options.shortArray || false;
+  this.forceNamespaceBrackets = options.forceNamespaceBrackets || false;
 
-  this.indent = typeof indent === 'string'  ? indent : '    ';
-  this.nl     = this.indent !== '' ? '\n' : '';
-  this.shortArray = shortArray || false;
-  this.forceNamespaceBrackets = forceNamespaceBrackets || false;
-
-  this.process = function (node, indent) {
+  this.process = function(node, indent) {
     var err;
 
     if (node === null) {
