@@ -18,6 +18,10 @@ module.exports = function (node, indent) {
   if (node.isStatic) {
     str += 'static ';
   }
+  // Fall back to public if nothing is specified
+  if (!node.visibility) {
+    node.visibility = 'public';
+  }
   str += node.visibility + ' function ';
   if (node.byref) {
     str += '&';
