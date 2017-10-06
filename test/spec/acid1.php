@@ -151,4 +151,13 @@ BAR
 FOO
 );
 
+  // nested blocks
+  {
+    {
+      {
+        echo "Hello world";
+      }
+    }
+  }
+
 }
