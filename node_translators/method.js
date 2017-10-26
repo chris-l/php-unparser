@@ -48,7 +48,7 @@ module.exports = function(node, indent) {
   if (this.options.bracketsNewLine) {
     str += this.nl + indent + '{' + this.nl;
   } else {
-    str += '{' + this.nl;
+    str +=  this.ws + '{' + this.nl;
   }
 
   str += doBody(codegen, indent, this.indent, this.nl, node.body.children);

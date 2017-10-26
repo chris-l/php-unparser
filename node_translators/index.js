@@ -2,13 +2,10 @@
 'use strict';
 
 function CodeGen(options) {
-    
-  this.ws = ' ';
-  if (options.dontUseWhitespaces) {
-    this.ws = '';
-  }
   
+  // Get options
   this.options = options;
+  this.ws = options.dontUseWhitespaces ? '' : ' ';
   this.indent = typeof options.indent === 'string' ? options.indent : '    ';
   this.nl = this.indent !== '' ? '\n' : '';
   this.shortArray = options.shortArray || false;
@@ -31,9 +28,7 @@ function CodeGen(options) {
         )
       );
     } else {
-      err = new Error(
-        'Bad AST structure'
-      );
+      err = new Error('Bad AST structure');
     }
     err.node = node;
     throw err;

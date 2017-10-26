@@ -18,7 +18,11 @@ module.exports = function (node, indent) {
   }
 
   // begin curly brace
-  str += this.nl + indent + '{' + this.nl;
+  if( this.options.bracketsNewLine ) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
+  }
 
   // trait body
   str += doBody(codegen, indent, this.indent, this.nl, node.body);
