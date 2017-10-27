@@ -26,7 +26,7 @@ module.exports = function (node, indent) {
     body = elements.join(',' + that.ws);
   }
 
-  if (node.shortForm) {
+  if (node.shortForm || this.shortArray) {
     return '[' + body + ']';
   }
   return 'array(' + body + ')';
