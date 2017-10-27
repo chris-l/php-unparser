@@ -25,7 +25,7 @@ module.exports = function (node, indent) {
   }
 
   // trait body
-  str += doBody(codegen, indent, this.indent, this.nl, node.body);
+  str += doBody.call(this, codegen, indent, node.body);
 
   // end curly brace
   str += indent + '}\n';

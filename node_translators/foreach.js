@@ -1,5 +1,6 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+
 var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
@@ -17,7 +18,7 @@ module.exports = function (node, indent) {
     str += this.ws + '{' + this.nl;
   }
 
-  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+  str += doBody.call(this, codegen, indent, node.body.children);
   if (node.shortForm) {
     str += indent + 'endforeach;';
   } else {

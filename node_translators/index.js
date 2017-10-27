@@ -2,7 +2,7 @@
 'use strict';
 
 function CodeGen(options) {
-  
+
   // Get options
   this.options = options;
   this.ws = options.dontUseWhitespaces ? '' : ' ';
@@ -28,6 +28,8 @@ function CodeGen(options) {
         )
       );
     } else {
+      console.log('Node:', node);
+      console.log('Node kind:', node.kind);
       err = new Error('Bad AST structure');
     }
     err.node = node;
@@ -36,6 +38,7 @@ function CodeGen(options) {
 }
 
 module.exports = CodeGen;
+
 // node translators
 CodeGen.prototype.array = require("./array.js");
 CodeGen.prototype.assign = require("./assign.js");

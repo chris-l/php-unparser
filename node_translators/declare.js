@@ -1,6 +1,8 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
+var doBody = require('./helper/body');
+
 module.exports = function (node, indent) {
   var codegen, str, items = [], k;
   codegen = this.process.bind(this);
@@ -12,23 +14,11 @@ module.exports = function (node, indent) {
   str = 'declare(' + items.join(',') + ')';
   if (node.mode !== 'none') {
     str += this.ws + '{' + this.nl;
-    str += require('./helper/body')(
-      codegen,
-      indent,
-      this.indent,
-      this.nl,
-      node.children
-    );
+    str += doBody.call(this, codegen, indent, node.children);
     str += indent + '}' + this.nl;
   } else {
     str += ';' + this.nl;
-    str += require('./helper/body')(
-      codegen,
-      indent,
-      '',
-      this.nl,
-      node.children
-    );
+    str += doBody.call(this, codegen, indent, node.children );
   }
   return str;
 };

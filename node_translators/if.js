@@ -1,6 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
-var body = require('./helper/body');
+
+var doBody = require('./helper/body');
 
 module.exports = function processIf(node, indent, inner) {
   var codegen, str, that = this;
@@ -15,13 +16,9 @@ module.exports = function processIf(node, indent, inner) {
     } else {
       str += this.ws + '{' + this.nl;
     }
-    str += body(
-      codegen,
-      indent,
-      this.indent,
-      this.nl,
-      node.body.children || [node.body]
-    );
+
+    str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
+
     if (!node.shortForm) {
       str += indent + '}';
     }
@@ -46,13 +43,9 @@ module.exports = function processIf(node, indent, inner) {
       } else {
         out += that.ws + 'else' + that.ws + '{' + that.nl;
       }
-      out += body(
-        codegen,
-        indent,
-        that.indent,
-        that.nl,
-        node.alternate.children || [node.alternate]
-      );
+
+      out += doBody.call(that, codegen, indent, node.alternate.children || [node.alternate]);
+
       if (!node.shortForm) {
         out += indent + '}' + that.nl;
       }

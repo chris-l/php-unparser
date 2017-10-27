@@ -32,7 +32,7 @@ module.exports = function(node, indent) {
     str += this.ws + '{' + this.nl;
   }
 
-  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+  str += doBody.call(this, codegen, indent, node.body.children);
   str += indent + '}' + this.nl;
 
   return str;

@@ -1,6 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
-var body = require('./helper/body');
+
+var doBody = require('./helper/body');
 
 module.exports = function (node) {
 
@@ -20,14 +21,7 @@ module.exports = function (node) {
   ) {
     return str + 'namespace ' + node.children[0].name + ';' +
       this.nl + this.nl +
-      body(
-        codegen,
-        '',
-        this.indent,
-        this.nl,
-        node.children[0].children,
-        true
-      );
+      doBody.call(this, codegen, '', node.children[0].children, true);
   }
-  return str + body(codegen, '', this.indent, this.nl, node.children, true);
+  return str + doBody.call(this, codegen, '', node.children, true);
 };

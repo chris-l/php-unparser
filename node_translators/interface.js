@@ -1,5 +1,6 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+
 var doBody = require('./helper/body');
 var identifier = require('./helper/identifier');
 
@@ -25,7 +26,7 @@ module.exports = function (node, indent) {
   }
 
   // interface body
-  str += doBody(codegen, indent, this.indent, this.nl, node.body);
+  str += doBody.call(this, codegen, indent, node.body);
 
   // end curly brace
   str += indent + '}\n';
