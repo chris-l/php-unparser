@@ -5,7 +5,7 @@ var noSemiColons = [
   'class', 'interface', 'trait', 'namespace', 'try',
   'if', 'switch', 'for', 'foreach', 'function', 'method',
   'while', 'doc', 'comment', 'label', 'declare',
-  'usegroup', 'traituse', 'inline'
+  'usegroup', 'traituse', 'inline', 'block'
 ];
 
 module.exports = function (codegen, currentIndent, body, isProgram) {
