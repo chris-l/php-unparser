@@ -1,9 +1,10 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-const CodeGen = require('./node_translators');
+var CodeGen = require('./node_translators');
 
-module.exports = function (ast, opts = {}) {  
-  const codeGen = new CodeGen(opts);
+module.exports = function (ast, opts) {
+  opts = opts || {};
+  var codeGen = new CodeGen(opts);
   return codeGen.process(ast, '');
 };

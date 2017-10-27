@@ -1,7 +1,7 @@
 /*jslint node: true, indent: 2, nomen:true, evil: true */
 'use strict';
 
-const defaults = {
+var defaults = {
   indent: '    ',
   dontUseWhitespaces: false,
   shortArray: false,
