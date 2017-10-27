@@ -1,15 +1,24 @@
 /*jslint node: true, indent: 2, nomen:true, evil: true */
 'use strict';
 
+const defaults = {
+  indent: '    ',
+  dontUseWhitespaces: false,
+  shortArray: false,
+  bracketsNewLine: true,
+  forceNamespaceBrackets: false,
+  collapseEmptyLines: true
+};
+
 function CodeGen(options) {
 
   // Get options
-  this.options = options;
-  this.ws = options.dontUseWhitespaces ? '' : ' ';
-  this.indent = typeof options.indent === 'string' ? options.indent : '    ';
+  this.options = Object.assign({}, defaults, options);
+  this.ws = this.options.dontUseWhitespaces ? '' : ' ';
+  this.indent = typeof this.options.indent === 'string' ? this.options.indent : '    ';
   this.nl = this.indent !== '' ? '\n' : '';
-  this.shortArray = options.shortArray || false;
-  this.forceNamespaceBrackets = options.forceNamespaceBrackets || false;
+  this.shortArray = this.options.shortArray || false;
+  this.forceNamespaceBrackets = this.options.forceNamespaceBrackets || false;
 
   this.process = function(node, indent) {
     var err;
