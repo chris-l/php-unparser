@@ -6,8 +6,8 @@
   "scripts": {
     "test": "make test",
     "prebuild": "node test/index.js",
-    "build": "browserify index.js -s phpUnparser -o ./dist/php-unparser.js",
-    "postbuild": "uglifyjs ./dist/php-unparser.js -o ./dist/php-unparser.min.js"
+    "build": "node node_modules/browserify/bin/cmd.js index.js -s phpUnparser -o ./dist/php-unparser.js",
+    "postbuild": "node node_modules/uglifyjs/bin/uglifyjs ./dist/php-unparser.js -o ./dist/php-unparser.min.js"
   },
   "repository": {
     "type": "git",
