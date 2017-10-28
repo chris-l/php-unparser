@@ -44,7 +44,7 @@ var ast = {
 };
 
 // Will output -> echo "hello world";
-console.log( unparse(ast, options) );
+console.log(unparse(ast, options));
 ```
 
 ## Options
