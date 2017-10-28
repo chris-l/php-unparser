@@ -3,7 +3,7 @@
 
 var doBody = require('./helper/body');
 
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen = this.process.bind(this), str;
 
   str = 'while' + this.ws + '(' + codegen(node.test, indent) + ')';

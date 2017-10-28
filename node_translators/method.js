@@ -6,7 +6,7 @@ var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body, flags
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen, str = '';
 
   if (node.isAbstract) {

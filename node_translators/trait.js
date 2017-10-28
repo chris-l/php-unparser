@@ -18,7 +18,7 @@ module.exports = function (node, indent) {
   }
 
   // begin curly brace
-  if( this.options.bracketsNewLine ) {
+  if (this.options.bracketsNewLine) {
     str += this.nl + indent + '{' + this.nl;
   } else {
     str += this.ws + '{' + this.nl;

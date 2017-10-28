@@ -4,7 +4,7 @@
 var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
-  var codegen, str, body;
+  var codegen, str;
 
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
@@ -45,7 +45,7 @@ module.exports = function (node, indent) {
   }
 
   str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
-  
+
   if (this.shortForm) {
     str += indent + 'endfor;';
   } else {

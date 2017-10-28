@@ -20,7 +20,7 @@ function CodeGen(options) {
   this.shortArray = this.options.shortArray || false;
   this.forceNamespaceBrackets = this.options.forceNamespaceBrackets || false;
 
-  this.process = function(node, indent) {
+  this.process = function (node, indent) {
     var err;
 
     if (node === null) {

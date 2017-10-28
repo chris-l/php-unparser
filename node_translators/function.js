@@ -6,7 +6,7 @@ var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen, str;
   codegen = this.process.bind(this);
 
