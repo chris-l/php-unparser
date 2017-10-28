@@ -161,7 +161,7 @@ module.exports = function (node, indent) {
 
   // begin curly brace
   if (node.name) {
-    if( this.options.bracketsNewLine ) {
+    if (this.options.bracketsNewLine) {
       str += this.nl + indent + '{' + this.nl;
     } else {
       str += this.ws + '{' + this.nl;
@@ -327,7 +327,7 @@ module.exports = function (node, indent) {
     str += indent + '}' + this.nl;
   } else {
     str += ';' + this.nl;
-    str += doBody.call(this, codegen, indent, node.children );
+    str += doBody.call(this, codegen, indent, node.children);
   }
   return str;
 };
@@ -338,8 +338,8 @@ module.exports = function (node, indent) {
 
 var doBody = require('./helper/body');
 
-module.exports = function(node, indent) {
-  var codegen ,str;
+module.exports = function (node, indent) {
+  var codegen, str;
   codegen = this.process.bind(this);
   str = 'do' + this.ws + '{' + this.nl;
   str += doBody.call(this, codegen, indent, node.body.children);
@@ -447,7 +447,7 @@ module.exports = function (node, indent) {
 var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
-  var codegen, str, body;
+  var codegen, str;
 
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
@@ -488,7 +488,7 @@ module.exports = function (node, indent) {
   }
 
   str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
-  
+
   if (this.shortForm) {
     str += indent + 'endfor;';
   } else {
@@ -536,7 +536,7 @@ var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen, str;
   codegen = this.process.bind(this);
 
@@ -837,7 +837,7 @@ function CodeGen(options) {
   this.shortArray = this.options.shortArray || false;
   this.forceNamespaceBrackets = this.options.forceNamespaceBrackets || false;
 
-  this.process = function(node, indent) {
+  this.process = function (node, indent) {
     var err;
 
     if (node === null) {
@@ -966,7 +966,7 @@ module.exports = function (node, indent) {
   }
 
   // begin curly brace
-  if( this.options.bracketsNewLine ) {
+  if (this.options.bracketsNewLine) {
     str += this.nl + indent + '{' + this.nl;
   } else {
     str += this.ws + '{' + this.nl;
@@ -1025,7 +1025,7 @@ var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
 
 // name, params, isRef, returnType, body, flags
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen, str = '';
 
   if (node.isAbstract) {
@@ -1074,6 +1074,7 @@ module.exports = function(node, indent) {
   str += indent + '}';
   return str;
 };
+
 },{"./helper/arguments":30,"./helper/body":31,"./helper/identifier":32}],45:[function(require,module,exports){
 /*jslint node: true, indent: 2 */
 'use strict';
@@ -1385,7 +1386,7 @@ module.exports = function (node, indent) {
   }
 
   // begin curly brace
-  if( this.options.bracketsNewLine ) {
+  if (this.options.bracketsNewLine) {
     str += this.nl + indent + '{' + this.nl;
   } else {
     str += this.ws + '{' + this.nl;
@@ -1565,7 +1566,7 @@ module.exports = function (node, indent) {
 
 var doBody = require('./helper/body');
 
-module.exports = function(node, indent) {
+module.exports = function (node, indent) {
   var codegen = this.process.bind(this), str;
 
   str = 'while' + this.ws + '(' + codegen(node.test, indent) + ')';
