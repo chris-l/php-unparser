@@ -9,12 +9,23 @@ This project is a JavaScript based [unparser](https://en.wikipedia.org/wiki/Unpa
 It aims to produce code that uses the style format recommended by PSR-1 and PSR-2.
 
 It's at an early development stage, but it is already able to generate code for most of the produced AST.
-It has no dependencies.
+
+It has __no dependencies__.
 
 ## How to use
 
 ```javascript
 var unparse = require('php-unparser');
+
+var options = {
+  indent: true,
+  dontUseWhitespaces: false,
+  shortArray: true,
+  bracketsNewLine: true,
+  forceNamespaceBrackets: false,
+  collapseEmptyLines: true
+};
+
 var ast = {
   "kind": "program",
   "children": [
@@ -32,8 +43,21 @@ var ast = {
   "errors": []
 };
 
-console.log(unparse(ast)); // Will output -> echo "hello world";
+// Will output -> echo "hello world";
+console.log(unparse(ast, options));
 ```
+
+## Options
+
+| option                 | value   | default  | description |
+|------------------------|---------|----------|-------------|
+| indent                 | string  |          | The indentation size, default is four white spaces. |
+| dontUseWhitespaces     | boolean | `false`  | If enabled removes all the whitespaces between stuff. |
+| shortArray             | boolean | `false`  | If enabled write arrays in short array syntax enabled since PHP 5.4.0 |
+| bracketsNewLine        | boolean | `true`   | If enabled will put brackets on new line. |
+| forceNamespaceBrackets | boolean | `false`  | Force the namespace bracketed syntax (_recommended for combining namespaces_) |
+| collapseEmptyLines     | boolean | `true`   | If enabled it will remove all empty lines between sections and properties. |
+
 ## Demo
 
 [See it working](https://chris-l.github.io/php-unparser/)

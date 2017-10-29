@@ -1,6 +1,7 @@
 /*jslint node: true, indent: 2 */
 'use strict';
-var body = require('./helper/body');
+
+var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
   var codegen, str, that = this, cases;
@@ -20,13 +21,7 @@ module.exports = function (node, indent) {
       head = indent + that.indent + 'default:' + that.nl;
     }
     if (item.body) {
-      head += body(
-        codegen,
-        indent + that.indent,
-        that.indent,
-        that.nl,
-        item.body.children || [item.body]
-      );
+      head += doBody.call(that, codegen, indent + that.indent, item.body.children || [item.body]);
     }
     return head;
   });

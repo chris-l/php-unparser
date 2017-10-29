@@ -1,5 +1,6 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+
 var doBody = require('./helper/body');
 
 module.exports = function (node, indent) {
@@ -32,14 +33,18 @@ module.exports = function (node, indent) {
 
   // begin curly brace
   if (node.name) {
-    str += this.nl + indent + '{' + this.nl;
+    if (this.options.bracketsNewLine) {
+      str += this.nl + indent + '{' + this.nl;
+    } else {
+      str += this.ws + '{' + this.nl;
+    }
   } else {
     str += this.ws + '{' + this.nl;
   }
 
 
   // class body
-  str += doBody(codegen, indent, this.indent, this.nl, node.body);
+  str += doBody.call(this, codegen, indent, node.body);
 
   // end curly brace
   str += indent + '}';

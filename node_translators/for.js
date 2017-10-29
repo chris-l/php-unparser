@@ -1,10 +1,11 @@
 /*jslint node: true, indent: 2 */
 'use strict';
 
-module.exports = function (node, indent) {
-  var codegen, str, body;
+var doBody = require('./helper/body');
 
-  body = require('./helper/body');
+module.exports = function (node, indent) {
+  var codegen, str;
+
   codegen = this.process.bind(this);
   str = 'for' + this.ws + '(';
 
@@ -43,13 +44,8 @@ module.exports = function (node, indent) {
     str += this.ws + '{' + this.nl;
   }
 
-  str += body(
-    codegen,
-    indent,
-    this.indent,
-    this.nl,
-    node.body.children || [node.body]
-  );
+  str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
+
   if (this.shortForm) {
     str += indent + 'endfor;';
   } else {

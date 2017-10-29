@@ -1,16 +1,24 @@
 /*jslint node: true, indent: 2, nomen:true, evil: true */
 'use strict';
 
-function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets) {
-  this.ws = ' ';
-  if (dontUseWhitespaces) {
-    this.ws = '';
-  }
+var defaults = {
+  indent: '    ',
+  dontUseWhitespaces: false,
+  shortArray: false,
+  bracketsNewLine: true,
+  forceNamespaceBrackets: false,
+  collapseEmptyLines: true
+};
 
-  this.indent = typeof indent === 'string'  ? indent : '    ';
-  this.nl     = this.indent !== '' ? '\n' : '';
-  this.shortArray = shortArray || false;
-  this.forceNamespaceBrackets = forceNamespaceBrackets || false;
+function CodeGen(options) {
+
+  // Get options
+  this.options = Object.assign({}, defaults, options);
+  this.ws = this.options.dontUseWhitespaces ? '' : ' ';
+  this.indent = typeof this.options.indent === 'string' ? this.options.indent : '    ';
+  this.nl = this.indent !== '' ? '\n' : '';
+  this.shortArray = this.options.shortArray || false;
+  this.forceNamespaceBrackets = this.options.forceNamespaceBrackets || false;
 
   this.process = function (node, indent) {
     var err;
@@ -29,9 +37,9 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
         )
       );
     } else {
-      err = new Error(
-        'Bad AST structure'
-      );
+      console.log('Node:', node);
+      console.log('Node kind:', node.kind);
+      err = new Error('Bad AST structure');
     }
     err.node = node;
     throw err;
@@ -39,6 +47,7 @@ function CodeGen(indent, dontUseWhitespaces, shortArray, forceNamespaceBrackets)
 }
 
 module.exports = CodeGen;
+
 // node translators
 CodeGen.prototype.array = require("./array.js");
 CodeGen.prototype.assign = require("./assign.js");

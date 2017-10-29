@@ -1,5 +1,6 @@
 /*jslint node: true, indent: 2 */
 'use strict';
+
 var doBody = require('./helper/body');
 var args = require('./helper/arguments');
 var identifier = require('./helper/identifier');
@@ -25,8 +26,13 @@ module.exports = function (node, indent) {
     str += identifier(node.type);
   }
 
-  str += this.nl + indent + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+  if (this.options.bracketsNewLine) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str += this.ws + '{' + this.nl;
+  }
+
+  str += doBody.call(this, codegen, indent, node.body.children);
   str += indent + '}' + this.nl;
 
   return str;

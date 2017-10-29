@@ -18,6 +18,10 @@ module.exports = function (node, indent) {
   if (node.isStatic) {
     str += 'static ';
   }
+  // Fall back to public if nothing is specified
+  if (!node.visibility) {
+    node.visibility = 'public';
+  }
   str += node.visibility + ' function ';
   if (node.byref) {
     str += '&';
@@ -40,8 +44,14 @@ module.exports = function (node, indent) {
   }
 
   codegen = this.process.bind(this);
-  str += this.nl + indent + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+
+  if (this.options.bracketsNewLine) {
+    str += this.nl + indent + '{' + this.nl;
+  } else {
+    str +=  this.ws + '{' + this.nl;
+  }
+
+  str += doBody.call(this, codegen, indent, node.body.children);
   str += indent + '}';
   return str;
 };

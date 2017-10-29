@@ -18,19 +18,19 @@ module.exports = function (node, indent) {
 
   codegen = this.process.bind(this);
   str = 'try' + this.ws + '{' + this.nl;
-  str += doBody(codegen, indent, this.indent, this.nl, node.body.children);
+  str += doBody.call(this, codegen, indent, node.body.children);
   str += indent + '}';
 
   str += node.catches.map(function (except) {
     var out = this.ws + 'catch' + this.ws + '(' + resolveExceptions(except.what) + ' ' + codegen(except.variable) + ')' + this.ws + '{' + this.nl;
-    out += doBody(codegen, indent, this.indent, this.nl, except.body.children);
+    out += doBody.call(this, codegen, indent, except.body.children);
     out += indent + '}';
     return out;
   }, this).join('');
 
   if (node.always) {
     str += this.ws + 'finally' + this.ws + '{' + this.nl;
-    str += doBody(codegen, indent, this.indent, this.nl, node.always.children);
+    str += doBody.call(this, codegen, indent, node.always.children);
     str += indent + '}';
   }
 
