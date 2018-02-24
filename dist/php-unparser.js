@@ -961,8 +961,8 @@ module.exports = function (node, indent) {
   }
   str += 'interface ' + node.name;
 
-  if (node.implements) {
-    str += ' implements ' + node.implements.map(identifier).join(',' + this.ws);
+  if (node.extends) {
+    str += ' extends ' + node.extends.map(identifier).join(',' + this.ws);
   }
 
   // begin curly brace
