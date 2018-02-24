@@ -2,6 +2,11 @@
 'use strict';
 
 module.exports = function (node, indent) {
+  if (!node.isDoc && node.lines.length === 1 && node.lines[0].indexOf('\n') > -1) {
+    node.isDoc = true;
+    node.lines = ('\n' + node.lines[0] + '\n').split('\n');
+  }
+
   if (node.isDoc) {
     var body = node.lines.join(this.nl + indent + ' * ');
     if (body.substring(body.length - 3) === ' * ') {
