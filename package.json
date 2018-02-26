@@ -24,6 +24,7 @@
     "browserify": "13.1.1",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
+    "jasmine-node": "1.14.5",
     "jslint": "0.9.6",
     "php-parser": "^2.2.0",
     "uglifyjs": "2.4.10"
