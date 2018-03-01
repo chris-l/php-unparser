@@ -15,7 +15,7 @@
     code = codeEle.value;
     output = document.querySelector('#output');
     try {
-      global.ast = phpParser.parseEval(code, { parser : { extractDoc: true }});
+      global.ast = phpParser.parseCode(code, { parser : { extractDoc: true }});
       output.textContent = phpUnparser(global.ast);
       Prism.highlightAll();
     } catch (e) {
