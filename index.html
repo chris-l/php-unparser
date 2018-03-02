@@ -12,14 +12,18 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/prism/1.5.1/themes/prism-twilight.css">
 <script src="//cdn.jsdelivr.net/prism/1.5.1/prism.js"></script>
 <script src="//cdn.jsdelivr.net/prism/1.5.1/components/prism-php.min.js"></script>
+<style>
+p.top {
+ font-size: 1.2em;
+}
+</style>
 </head>
 <body>
 <div class="container-fluid">
   <div class="centered">
-    <h1>PHP code generator demo: PHP → AST → PHP</h1>
-    <p>Using glayzzle's <a href="https://github.com/glayzzle/php-parser">php-parser</a> to create the AST</p>
-    <p>and using <a href="https://github.com/chris-l/php-unparser">php-unparser</a> to unparse the AST and generate the code</p>
-    <p>Inspired by the <a href="https://estools.github.io/escodegen/demo/index.html">escodegen</a> demo, this is a pretty printer using both php-parser and php-unparser</p>
+    <h1>JavaScript based PHP code generator: PHP → AST → PHP</h1>
+    <p class="top">Using glayzzle's <a href="https://github.com/glayzzle/php-parser">php-parser</a> as the parser</p>
+    <p class="top">and using <a href="https://github.com/chris-l/php-unparser">php-unparser</a> to generate the code</p>
   </div>
   <div class="row">
     <div class="col-lg-12">
@@ -45,6 +49,7 @@ $e = new Test(Array(1,2,));
     <div class="col-lg-12">
       <label for="output">Pretty printed code:</label>
       <pre class="language-javascript"><code class="language-javascript" id="output"></code></pre>
+      <p>Inspired by the <a href="https://estools.github.io/escodegen/demo/index.html">escodegen</a> demo, this is a pretty printer using both php-parser and php-unparser</p>
     </div>
   </div>
 </div>
