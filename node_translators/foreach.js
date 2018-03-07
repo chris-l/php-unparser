@@ -18,7 +18,7 @@ module.exports = function (node, indent) {
     str += this.ws + '{' + this.nl;
   }
 
-  str += doBody.call(this, codegen, indent, node.body.children);
+  str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
   if (node.shortForm) {
     str += indent + 'endforeach;';
   } else {

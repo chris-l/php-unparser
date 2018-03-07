@@ -23,6 +23,11 @@ describe('Blocks', function () {
     expect(parseUnparse('<?php {{\n// Code generation for this\n}}')).toBe(['<?php', '', '{', '    ', '    {', '        ', '        // Code generation for this', '    }', '', '}', '', ''].join('\n'));
   });
 });
+describe('Blocks', function () {
+  it('should be present even if it was a blockless foreach', function () {
+    expect(parseUnparse('<?php\nforeach($a as $c) $c;')).toBe(['<?php', 'foreach ($a as $c) {', '    $c;', '}', ''].join('\n'));
+  });
+});
 
 describe('acid1.php', function () {
   it('must correcty convert nested blocks', function (done) {
