@@ -19,7 +19,7 @@ namespace foo\bar
 
     
     // generic constant
-    const FOOBAR = "foo & bar";;
+    const FOOBAR = "foo & bar";
     
     /** 
      * a class
