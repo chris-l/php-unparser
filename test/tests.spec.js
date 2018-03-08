@@ -18,6 +18,11 @@ describe('Comments', function () {
     expect(parseUnparse('<?php /*\naa\naa\naa\ncc\n*/')).toBe(['<?php', '', '/** ', ' * aa', ' * aa', ' * aa', ' * cc', ' */', ''].join('\n'));
   });
 });
+describe('Comments', function () {
+  it('', function () {
+    expect(parseUnparse('<?php\necho 1; //comment on the same line\n')).toBe(['<?php', 'echo 1; // comment on the same line', '', ''].join('\n'));
+  });
+});
 describe('Blocks', function () {
   it('must correcty convert nested blocks', function () {
     expect(parseUnparse('<?php {{\n// Code generation for this\n}}')).toBe(['<?php', '', '{', '    ', '    {', '        ', '        // Code generation for this', '    }', '', '}', '', ''].join('\n'));

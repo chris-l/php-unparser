@@ -2,6 +2,9 @@
 'use strict';
 
 module.exports = function (node, indent) {
+  if (node.alreadyParsed) {
+    return '';
+  }
   if (!node.isDoc && node.lines.length === 1 && node.lines[0].indexOf('\n') > -1) {
     node.isDoc = true;
     node.lines = ('\n' + node.lines[0] + '\n').split('\n');

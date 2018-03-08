@@ -28,14 +28,14 @@ module.exports = function (codegen, currentIndent, body, isProgram, dontIncrease
   }
 
   // Map body values
-  str = body.map(function (expr) {
+  str = body.map(function (expr, index) {
+    var line, next;
 
     // Return empty string
     if (expr === null) {
       return '';
     }
 
-    var line;
     if (expr.kind === 'label') {
       line = codegen(expr, indentation);
     } else {
@@ -45,6 +45,14 @@ module.exports = function (codegen, currentIndent, body, isProgram, dontIncrease
     // This expressions don't require semicolons
     if (noSemiColons.indexOf(expr.kind) === -1) {
       line += ';';
+    }
+
+    // Check if the next expression is a comment that should be
+    // on the same line as this expression
+    next = body[index + 1] || {};
+    if (next.kind === 'doc' && next.loc && expr.loc && next.loc.start.line === expr.loc.start.line) {
+      line += that.ws + codegen(next, '').trim();
+      next.alreadyParsed = true; // prevent to parse again the comment
     }
 
     return line + that.nl;
