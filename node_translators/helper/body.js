@@ -8,7 +8,7 @@ var noSemiColons = [
   'usegroup', 'traituse', 'inline', 'block'
 ];
 
-module.exports = function (codegen, currentIndent, body, isProgram) {
+module.exports = function (codegen, currentIndent, body, isProgram, dontIncreaseIndent) {
 
   var str, indentation, delimiter, that = this;
 
@@ -16,7 +16,11 @@ module.exports = function (codegen, currentIndent, body, isProgram) {
   delimiter = that.options.collapseEmptyLines ? '' : '\n';
 
   // Set the indentation
-  indentation = isProgram ? '' : currentIndent + that.indent;
+  if (dontIncreaseIndent) {
+    indentation = currentIndent;
+  } else {
+    indentation = isProgram ? '' : currentIndent + that.indent;
+  }
 
   // Force body as an array
   if (!Array.isArray(body)) {

@@ -8,17 +8,17 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
   for (k in node.what) {
     if (node.what.hasOwnProperty(k) && node.what[k]) {
-      items.push(k + '=' + codegen(node.what[k]));
+      items.push(k + this.ws + '=' + this.ws + codegen(node.what[k]));
     }
   }
-  str = 'declare(' + items.join(',') + ')';
+  str = 'declare(' + items.join(',' + this.ws) + ')';
   if (node.mode !== 'none') {
     str += this.ws + '{' + this.nl;
     str += doBody.call(this, codegen, indent, node.children);
     str += indent + '}' + this.nl;
   } else {
     str += ';' + this.nl;
-    str += doBody.call(this, codegen, indent, node.children);
+    str += doBody.call(this, codegen, indent, node.children, true);
   }
   return str;
 };
