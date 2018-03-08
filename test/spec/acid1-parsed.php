@@ -11,8 +11,8 @@ namespace foo\bar
     ?>Hello<?php
 
     use function foo {
-        baz;
-        bar as fooBar;
+        baz,
+        bar as fooBar
     };
 
     use bar as nsBar;
