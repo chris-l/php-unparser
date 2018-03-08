@@ -12,7 +12,7 @@ module.exports = function (node, indent) {
   str = 'const ';
   str += node.name;
   str += this.ws + '=' + this.ws;
-  str += codegen(node.value, indent) + ';';
+  str += codegen(node.value, indent);
 
   return str;
 };
