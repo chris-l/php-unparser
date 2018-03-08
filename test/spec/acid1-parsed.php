@@ -136,7 +136,7 @@ next:
                     {
                         return "meeeh";
                     }
-                }())->goatIt();
+                })->goatIt();
             }
         } else {
             for ($i = 0; $i < count($this->banana); $i++) {
