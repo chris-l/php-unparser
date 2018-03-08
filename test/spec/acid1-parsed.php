@@ -105,7 +105,7 @@ next:
         return 300 | 5;
     }
 
-    $foo = function (int $bar = 42) use ($something) : bool {
+    $foo = function (?int $bar = 42) use ($something) : bool {
         static $banana;
         if ($bar > fooBar::NUMBAR) {
             while ($bar) {

@@ -6,6 +6,10 @@ function processElement(indent, ws, codegen) {
   return function (arg) {
     var str = '';
 
+    if (arg.nullable) {
+      str += '?';
+    }
+
     if (arg.type) { // type hint
       str += codegen(arg.type, indent) + ws;
     }
