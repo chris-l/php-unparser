@@ -36,9 +36,8 @@ private $someProp; public $otherProp = 1;
      * This is the constructor
        */
     function __construct($arg=array()) {
-// Useless multiplication
-    $this-&gt;someProp=1*10;
-    if(count($arg)&gt;0) { foreach($arg as$no) { $this-&gt;otherProp += $no; }}
+      $this-&gt;someProp=1*10;//Useless multiplication
+      if(count($arg)&gt;0) foreach($arg as$no) $this-&gt;otherProp += $no; 
     }
 }
 $e = new Test(Array(1,2,));
