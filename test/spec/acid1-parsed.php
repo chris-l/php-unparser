@@ -1,187 +1,187 @@
 #!/usr/bin/php
 <?php
 echo php_version();
-declare(strict_types=1);
-    include_once "foo.php";
-    
-    /** a comment before the namespace comment * */
-    namespace foo\bar 
+declare(strict_types = 1);
+include_once "foo.php";
+
+/** a comment before the namespace comment * */
+namespace foo\bar 
 {
 
-        ?>Hello<?php
+    ?>Hello<?php
 
-        use function foo {
-            baz;
-            bar as fooBar;
-        };
+    use function foo {
+        baz;
+        bar as fooBar;
+    };
 
-        use bar as nsBar;
+    use bar as nsBar;
 
-        
-        // generic constant
-        const FOOBAR = "foo & bar";;
+    
+    // generic constant
+    const FOOBAR = "foo & bar";;
+    
+    /** 
+     * a class
+     */
+    abstract class fooBar implements namespace\fooBaz
+    {
+        use Line;
+
+        use foo, bar {
+            foo::baz insteadof bar;
+            bar::foo as baz;
+        }
+
+        public const FOOBAR = "BARFOO";
+        protected $dwarf = ["sneezy" => "achoum", "bashful" => "tadah"];
         
         /** 
-         * a class
+         * Something is done here
          */
-        abstract class fooBar implements namespace\fooBaz
+        final public function doSomething()
         {
-            use Line;
-
-            use foo, bar {
-                foo::baz insteadof bar;
-                bar::foo as baz;
-            }
-
-            public const FOOBAR = "BARFOO";
-            protected $dwarf = ["sneezy" => "achoum", "bashful" => "tadah"];
             
-            /** 
-             * Something is done here
-             */
-            final public function doSomething()
-            {
-                
-                // do not wanna do
-                foreach ($this->dwarf as $name => $greeting) {
-                    echo 'Hey ho {$name}, {$greeting} !';
-                    continue $foo;
-                }
-                throw new \ComeToHome("Thats it");
+            // do not wanna do
+            foreach ($this->dwarf as $name => $greeting) {
+                echo 'Hey ho {$name}, {$greeting} !';
+                continue $foo;
             }
+            throw new \ComeToHome("Thats it");
         }
+    }
 
-        interface Miror extends Object
-        {
-            public function Am_I_Uggly() : bool;
-            protected function broken() : bool;
-            static protected function isWhiteSnowAlive() : bool;
-        }
+    interface Miror extends Object
+    {
+        public function Am_I_Uggly() : bool;
+        protected function broken() : bool;
+        static protected function isWhiteSnowAlive() : bool;
+    }
 
-        function iter()
-        {
-            yield "ator" => $foo;
-            yield from iter(50);
-        }
+    function iter()
+    {
+        yield "ator" => $foo;
+        yield from iter(50);
+    }
 
-        trait Line
+    trait Line
+    {
+        public function draw(bool $arrow = false) : string
         {
-            public function draw(bool $arrow = false) : string
-            {
-                switch ($this->style) {
-                    case "dot":
-                    case "point":
-                        $body = "......";
-                        break;
-                    default:
-                        $body = "-----";
-                        break;
-                }
-                return $body . ($arrow ? ">" : "");
+            switch ($this->style) {
+                case "dot":
+                case "point":
+                    $body = "......";
+                    break;
+                default:
+                    $body = "-----";
+                    break;
             }
-            private function shuut()
-            {
-                return __NAMESPACE__;
-            }
+            return $body . ($arrow ? ">" : "");
         }
-
-        
-        // this is SPARTA !
-        function sparta() : ?int
+        private function shuut()
         {
-            global $persians;
-            $index = -1;
+            return __NAMESPACE__;
+        }
+    }
+
+    
+    // this is SPARTA !
+    function sparta() : ?int
+    {
+        global $persians;
+        $index = -1;
 next:
-            $guy = $persians[++$index];
-            if (rand(0, 10) > 5 || false) {
-                @$guy->kill();
-            } else {
-                $guy->kick(...$foo);
-            }
-
-            if ((int)$index < count($persians)) {
-                goto next;
-            }
-            return 300 | 5;
+        $guy = $persians[++$index];
+        if (rand(0, 10) > 5 || false) {
+            @$guy->kill();
+        } else {
+            $guy->kick(...$foo);
         }
 
-        $foo = function (int $bar = 42) use ($something) : bool {
-            static $banana;
-            if ($bar > fooBar::NUMBAR) {
-                while ($bar) {
-                    if ((int)calculateMeaningOfLife() === 42) {
-                        break foo;
-                    } else {
-                        continue;
-                    }
+        if ((int)$index < count($persians)) {
+            goto next;
+        }
+        return 300 | 5;
+    }
 
+    $foo = function (int $bar = 42) use ($something) : bool {
+        static $banana;
+        if ($bar > fooBar::NUMBAR) {
+            while ($bar) {
+                if ((int)calculateMeaningOfLife() === 42) {
+                    break foo;
+                } else {
+                    continue;
                 }
-                do {
-                    ?>        Caesar: here I was
+
+            }
+            do {
+                ?>        Caesar: here I was
         <?php
 
-                } while (false);
-            } elseif (!($something instanceof Banana)) {
-                try {
-                    $bipbip = clone $something;
-                    $bipbip->crazy()->boom([1, 2, 3]);
-                } catch (Coco|Nut $ex) {
-                    $ex->printStackTrace();
-                } finally {
-                    if (isset($bipbip, $ex)) {
-                        unset($bipbip, $ex);
+            } while (false);
+        } elseif (!($something instanceof Banana)) {
+            try {
+                $bipbip = clone $something;
+                $bipbip->crazy()->boom([1, 2, 3]);
+            } catch (Coco|Nut $ex) {
+                $ex->printStackTrace();
+            } finally {
+                if (isset($bipbip, $ex)) {
+                    unset($bipbip, $ex);
+                }
+                return (new class extends fooBar {
+                    public function goatIt()
+                    {
+                        return "meeeh";
                     }
-                    return (new class extends fooBar {
-                        public function goatIt()
-                        {
-                            return "meeeh";
-                        }
-                    }())->goatIt();
-                }
-            } else {
-                for ($i = 0; $i < count($this->banana); $i++) {
-                    $x %= ($i * 2) / ($i - 1);
-                    $what = $this->$x[++$i] ? "yes!" : "noo!";
-                }
-                
-                // @todo $this->a_$foo
-                return $$foo ?? false;
+                }())->goatIt();
             }
+        } else {
+            for ($i = 0; $i < count($this->banana); $i++) {
+                $x %= ($i * 2) / ($i - 1);
+                $what = $this->$x[++$i] ? "yes!" : "noo!";
+            }
+            
+            // @todo $this->a_$foo
+            return $$foo ?? false;
+        }
 
-            return empty(namespace\FOOBAR);
-        };
-        if ($foo):
-            echo `bar&`;
-        elseif ($bar):
-            echo `ls -larth`;
-        endif;
+        return empty(namespace\FOOBAR);
+    };
+    if ($foo):
+        echo `bar&`;
+    elseif ($bar):
+        echo `ls -larth`;
+    endif;
 
-        
-        // list version
-        list($a, list($b, $c)) = [1, [2, 3]];
-        print (<<<BAZ
+    
+    // list version
+    list($a, list($b, $c)) = [1, [2, 3]];
+    print (<<<BAZ
   Hello world
 BAZ);
-        exit($foo(<<<'BAR'
+    exit($foo(<<<'BAR'
   $foo + $bar
 BAR));
-        eval(<<<FOO
+    eval(<<<FOO
   return 'This is madness!';
 FOO);
-        
-        // nested blocks
+    
+    // nested blocks
+    
+    {
         
         {
             
             {
-                
-                {
-                    echo "Hello world";
-                }
-
+                echo "Hello world";
             }
 
         }
+
+    }
 
 }
 

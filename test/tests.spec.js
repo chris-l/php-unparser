@@ -28,6 +28,11 @@ describe('Blocks', function () {
     expect(parseUnparse('<?php\nforeach($a as $c) $c;')).toBe(['<?php', 'foreach ($a as $c) {', '    $c;', '}', ''].join('\n'));
   });
 });
+describe('Declare', function () {
+  it('', function () {
+    expect(parseUnparse('<?php\ndeclare(strict_types=1);echo 1;')).toBe(['<?php', 'declare(strict_types = 1);', 'echo 1;', '', ''].join('\n'));
+  });
+});
 
 describe('acid1.php', function () {
   it('must correcty convert nested blocks', function (done) {
@@ -43,7 +48,7 @@ describe('acid1.php', function () {
           console.log(e);
         }
         expect(output === null).toBe(false);
-        expect(output).toBe(strparsed.toString());
+        expect(output.trim()).toBe(strparsed.toString().trim());
         done();
       });
     });
