@@ -39,6 +39,12 @@ describe('Declare', function () {
   });
 });
 
+describe('BinaryExpressions', function () {
+  it('should use multiple lines if they are longer than 80 chars', function () {
+    expect(parseUnparse('<?php\n{echo "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" . "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" . "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;";}')).toBe([ '<?php', '', '{', '    echo "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" .', '        "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" .', '        "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;";', '}', '', '' ].join('\n'));
+  });
+});
+
 describe('acid1.php', function () {
   it('must correcty convert nested blocks', function (done) {
     fs.readFile('./test/spec/acid1-parsed.php', function (err, strparsed) {
