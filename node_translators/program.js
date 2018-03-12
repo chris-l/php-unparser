@@ -11,8 +11,12 @@ module.exports = function (node) {
 
   var codegen = this.process.bind(this), str = '<?php' + this.nl;
   if (node.children[0].kind === 'inline') {
-    str = node.children[0].value + str;
-    node.children.shift();
+    str = '';
+    node.children[0].omitClosingTag = true;
+  }
+  // Is the last expression and an inline
+  if (node.children[node.children.length - 1].kind === 'inline') {
+    node.children[node.children.length - 1].isLast = true;
   }
   if (
     !this.forceNamespaceBrackets &&

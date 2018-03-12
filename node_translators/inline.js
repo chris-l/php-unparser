@@ -2,5 +2,14 @@
 'use strict';
 
 module.exports = function (node) {
-  return '?>' + node.value + '<?php' + this.nl;
+  var str;
+
+  str = node.omitClosingTag ? '' : '?>';
+  str += node.value;
+
+  if (node.isInlineEcho) {
+    return str + '<?=' + this.ws;
+  }
+
+  return str + (node.isLast ? '' : '<?php' + this.nl);
 };

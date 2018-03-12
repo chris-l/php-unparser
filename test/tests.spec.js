@@ -44,6 +44,11 @@ describe('BinaryExpressions', function () {
     expect(parseUnparse('<?php\n{echo "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" . "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" . "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;";}')).toBe([ '<?php', '', '{', '    echo "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" .', '        "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;" .', '        "background:#F9F7D8;color:#A79F00; border:1px solid #F0EEBD;";', '}', '', '' ].join('\n'));
   });
 });
+describe('inline', function () {
+  it('', function () {
+    expect(parseUnparse('<div class="<?= "hola" ?>">')).toBe('<div class="<?= "hola" ?>">');
+  });
+});
 
 describe('acid1.php', function () {
   it('must correcty convert nested blocks', function (done) {
