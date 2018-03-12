@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+
 echo php_version();
 declare(strict_types = 1);
 include_once "foo.php";
@@ -184,4 +185,3 @@ FOO);
     }
 
 }
-
