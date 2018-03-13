@@ -15,7 +15,10 @@ describe('Array', function () {
 });
 describe('Comments', function () {
   it('must correcty convert multiline comments that start with only one *', function () {
-    expect(parseUnparse('<?php /*\naa\naa\naa\ncc\n*/')).toBe(['<?php', '', '/** ', ' * aa', ' * aa', ' * aa', ' * cc', ' */', ''].join('\n'));
+    expect(parseUnparse('<?php /*\naa\naa\naa\ncc\n*/')).toBe(['<?php', '/*aa', '  aa', '  aa', '  cc*/', ''].join('\n'));
+  });
+  it('must correcty convert multiline comments that dont have an space', function () {
+    expect(parseUnparse('<?php { /******\nbbb\nccc\n*****/\n//echo $ee;\n}')).toBe(['<?php', '', '{', '    /******', '      bbb', '      ccc', '      *****/', '    // echo $ee;', '}', '', ''].join('\n'));
   });
 });
 describe('Comments', function () {
@@ -25,7 +28,7 @@ describe('Comments', function () {
 });
 describe('Blocks', function () {
   it('must correcty convert nested blocks', function () {
-    expect(parseUnparse('<?php {{\n// Code generation for this\n}}')).toBe(['<?php', '', '{', '    ', '    {', '        ', '        // Code generation for this', '    }', '', '}', '', ''].join('\n'));
+    expect(parseUnparse('<?php {{\n// Code generation for this\n}}')).toBe(['<?php', '', '{', '    ', '    {', '        // Code generation for this', '    }', '', '}', '', ''].join('\n'));
   });
 });
 describe('Blocks', function () {

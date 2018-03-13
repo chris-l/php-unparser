@@ -18,7 +18,6 @@ namespace foo\bar
 
     use bar as nsBar;
 
-    
     // generic constant
     const FOOBAR = "foo & bar";
     
@@ -42,7 +41,6 @@ namespace foo\bar
          */
         final public function doSomething()
         {
-            
             // do not wanna do
             foreach ($this->dwarf as $name => $greeting) {
                 echo 'Hey ho {$name}, {$greeting} !';
@@ -86,7 +84,6 @@ namespace foo\bar
         }
     }
 
-    
     // this is SPARTA !
     function sparta() : ?int
     {
@@ -144,7 +141,6 @@ next:
                 $x %= ($i * 2) / ($i - 1);
                 $what = $this->$x[++$i] ? "yes!" : "noo!";
             }
-            
             // @todo $this->a_$foo
             return $$foo ?? false;
         }
@@ -157,7 +153,6 @@ next:
         echo `ls -larth`;
     endif;
 
-    
     // list version
     list($a, list($b, $c)) = [1, [2, 3]];
     print (<<<BAZ
@@ -169,7 +164,6 @@ BAR));
     eval(<<<FOO
   return 'This is madness!';
 FOO);
-    
     // nested blocks
     
     {

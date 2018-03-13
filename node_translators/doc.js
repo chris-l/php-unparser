@@ -2,20 +2,28 @@
 'use strict';
 
 module.exports = function (node, indent) {
+  var self = this, union, body;
+
   if (node.alreadyParsed) {
     return '';
   }
-  if (!node.isDoc && node.lines.length === 1 && node.lines[0].indexOf('\n') > -1) {
-    node.isDoc = true;
-    node.lines = ('\n' + node.lines[0] + '\n').split('\n');
-  }
 
   if (node.isDoc) {
-    var body = node.lines.join(this.nl + indent + ' * ');
+    body = node.lines.join(this.nl + indent + ' * ');
     if (body.substring(body.length - 3) === ' * ') {
       body = body.substring(0, body.length - 3);
     }
     return this.nl + indent + '/** ' + body + ' */';
   }
-  return this.nl + indent + '// ' + node.lines.join(this.nl + indent + '// ');
+
+  union = self.nl + indent + self.ws + self.ws;
+  return node.lines.reduce(function (acc, line) {
+
+    if (line.indexOf('\n') > -1) {
+      return acc.concat('/*' + line.split("\n").join(union) + '*/');
+    }
+
+    return acc.concat('// ' + line);
+  }, []).join(self.nl + indent);
+
 };
