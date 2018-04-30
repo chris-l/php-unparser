@@ -7,6 +7,9 @@ module.exports = function (node, indent) {
   var codegen = this.process.bind(this), str;
 
   str = 'while' + this.ws + '(' + codegen(node.test, indent) + ')';
+  if (!node.body) {
+    return str;
+  }
   if (node.shortForm) {
     str += ':' + this.nl;
   } else {
