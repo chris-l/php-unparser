@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.phpUnparser = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.phpUnparser = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /*jslint node: true, indent: 2 */
 'use strict';
 
@@ -59,10 +59,18 @@ module.exports = function (node, indent) {
 'use strict';
 
 module.exports = function (node, indent) {
-  var codegen = this.process.bind(this);
-  return codegen(node.left, indent) +
-    this.ws + node.type + this.ws +
-    codegen(node.right, indent);
+  var codegen, str, firstpart, secondpart;
+  codegen = this.process.bind(this);
+
+  firstpart = codegen(node.left, indent);
+  secondpart = codegen(node.right, indent);
+  str = firstpart + this.ws + node.type + this.ws + secondpart;
+
+  if (str.length > 80) {
+    str = firstpart + this.ws + node.type + this.nl + indent + this.indent + secondpart;
+  }
+
+  return str;
 };
 
 },{}],5:[function(require,module,exports){
@@ -238,7 +246,7 @@ module.exports = function (node, indent) {
   // use statement
   if (node.uses && node.uses.length > 0) {
     useArgs = node.uses.map(function (arg) {
-      return '$' + arg.name;
+      return (arg.byref ? '&$' : '$') + arg.name;
     });
     str += this.ws + 'use' + this.ws + '(' + useArgs.join(',' + this.ws) + ')';
   }
@@ -273,7 +281,7 @@ module.exports = function (node, indent) {
   str = 'const ';
   str += node.name;
   str += this.ws + '=' + this.ws;
-  str += codegen(node.value, indent) + ';';
+  str += codegen(node.value, indent);
 
   return str;
 };
@@ -317,17 +325,17 @@ module.exports = function (node, indent) {
   codegen = this.process.bind(this);
   for (k in node.what) {
     if (node.what.hasOwnProperty(k) && node.what[k]) {
-      items.push(k + '=' + codegen(node.what[k]));
+      items.push(k + this.ws + '=' + this.ws + codegen(node.what[k]));
     }
   }
-  str = 'declare(' + items.join(',') + ')';
+  str = 'declare(' + items.join(',' + this.ws) + ')';
   if (node.mode !== 'none') {
     str += this.ws + '{' + this.nl;
     str += doBody.call(this, codegen, indent, node.children);
     str += indent + '}' + this.nl;
   } else {
     str += ';' + this.nl;
-    str += doBody.call(this, codegen, indent, node.children);
+    str += doBody.call(this, codegen, indent, node.children, true);
   }
   return str;
 };
@@ -352,14 +360,30 @@ module.exports = function (node, indent) {
 'use strict';
 
 module.exports = function (node, indent) {
+  var self = this, union, body;
+
+  if (node.alreadyParsed) {
+    return '';
+  }
+
   if (node.isDoc) {
-    var body = node.lines.join(this.nl + indent + ' * ');
+    body = node.lines.join(this.nl + indent + ' * ');
     if (body.substring(body.length - 3) === ' * ') {
       body = body.substring(0, body.length - 3);
     }
     return this.nl + indent + '/** ' + body + ' */';
   }
-  return this.nl + indent + '// ' + node.lines.join(this.nl + indent + '// ');
+
+  union = self.nl + indent + self.ws + self.ws;
+  return node.lines.reduce(function (acc, line) {
+
+    if (line.indexOf('\n') > -1) {
+      return acc.concat('/*' + line.split("\n").join(union) + '*/');
+    }
+
+    return acc.concat('// ' + line);
+  }, []).join(self.nl + indent);
+
 };
 
 },{}],20:[function(require,module,exports){
@@ -369,7 +393,13 @@ module.exports = function (node, indent) {
 var params = require('./helper/parameters');
 
 module.exports = function (node, indent) {
-  return 'echo ' + params(node.arguments, indent, this);
+  var str = params(node.arguments, indent, this);
+
+  if (node.isInlineEcho) {
+    return str + this.ws + '?>';
+  }
+
+  return 'echo ' + str;
 };
 
 },{"./helper/parameters":33}],21:[function(require,module,exports){
@@ -518,7 +548,7 @@ module.exports = function (node, indent) {
     str += this.ws + '{' + this.nl;
   }
 
-  str += doBody.call(this, codegen, indent, node.body.children);
+  str += doBody.call(this, codegen, indent, node.body.children || [node.body]);
   if (node.shortForm) {
     str += indent + 'endforeach;';
   } else {
@@ -596,6 +626,10 @@ function processElement(indent, ws, codegen) {
   return function (arg) {
     var str = '';
 
+    if (arg.nullable) {
+      str += '?';
+    }
+
     if (arg.type) { // type hint
       str += codegen(arg.type, indent) + ws;
     }
@@ -645,44 +679,74 @@ var noSemiColons = [
   'usegroup', 'traituse', 'inline', 'block'
 ];
 
-module.exports = function (codegen, currentIndent, body, isProgram) {
+module.exports = function (codegen, currentIndent, body, isProgram, dontIncreaseIndent) {
 
-  var str, indentation, delimiter, that = this;
+  var str = '', expr, i, indentation, delimiter, that = this, line, next, after, dontUseNewLine, isInlineEcho;
 
   // Set the rows delimiter
   delimiter = that.options.collapseEmptyLines ? '' : '\n';
 
   // Set the indentation
-  indentation = isProgram ? '' : currentIndent + that.indent;
+  if (dontIncreaseIndent) {
+    indentation = currentIndent;
+  } else {
+    indentation = isProgram ? '' : currentIndent + that.indent;
+  }
 
   // Force body as an array
   if (!Array.isArray(body)) {
     body = [body];
   }
 
-  // Map body values
-  str = body.map(function (expr) {
+  for (i = 0; i < body.length; i += 1) {
+    expr = body[i];
+    next = body[i + 1] || {};
+    after = body[i + 2] || {};
 
     // Return empty string
-    if (expr === null) {
-      return '';
+    if (expr !== null) {
+
+
+      /**
+       * If this expression is an inline, the next is an echo, and the one after
+       * is another expression inline, treat it as an inline echo
+       */
+      if (expr.kind === 'inline' && next.kind === 'echo' && after.kind === 'inline') {
+        expr.isInlineEcho = true;
+        next.isInlineEcho = true;
+        after.omitClosingTag = true;
+        dontUseNewLine = true;
+      }
+
+
+      // Is this expr the echo of an inline echo?
+      isInlineEcho = expr.kind === 'echo' && expr.isInlineEcho === true;
+
+      if (expr.kind === 'label' || isInlineEcho || expr.omitClosingTag) {
+        line = codegen(expr, indentation);
+      } else {
+        line = indentation + codegen(expr, indentation);
+      }
+
+      // This expressions don't require semicolons
+      if (noSemiColons.indexOf(expr.kind) === -1 && !isInlineEcho) {
+        line += ';';
+      }
+
+      // Check if the next expression is a comment that should be
+      // on the same line as this expression
+      if (next.kind === 'doc' && next.loc && expr.loc && next.loc.start.line === expr.loc.start.line) {
+        line += that.ws + codegen(next, '').trim();
+        next.alreadyParsed = true; // prevent to parse again the comment
+      }
+
+
+      str += line;
+      if (!dontUseNewLine && !isInlineEcho) {
+        str += that.nl + delimiter;
+      }
     }
-
-    var line;
-    if (expr.kind === 'label') {
-      line = codegen(expr, indentation);
-    } else {
-      line = indentation + codegen(expr, indentation);
-    }
-
-    // This expressions don't require semicolons
-    if (noSemiColons.indexOf(expr.kind) === -1) {
-      line += ';';
-    }
-
-    return line + that.nl;
-
-  }).join(delimiter);
+  }
 
   // Return the generated string
   return str;
@@ -941,7 +1005,16 @@ CodeGen.prototype.yield = require("./yield.js");
 'use strict';
 
 module.exports = function (node) {
-  return '?>' + node.value + '<?php' + this.nl;
+  var str;
+
+  str = node.omitClosingTag ? '' : '?>';
+  str += node.value;
+
+  if (node.isInlineEcho) {
+    return str + '<?=' + this.ws;
+  }
+
+  return str + (node.isLast ? '' : '<?php' + this.nl);
 };
 
 },{}],39:[function(require,module,exports){
@@ -1101,11 +1174,13 @@ module.exports = function (node, indent) {
   var codegen, str;
   codegen = this.process.bind(this);
   str = codegen(node.what, indent);
-  str += '(';
-  if (node.arguments && node.arguments.length > 0) {
-    str += params(node.arguments, indent, this);
+  if (node.what.kind !== 'class') {
+    str += '(';
+    if (node.arguments && node.arguments.length > 0) {
+      str += params(node.arguments, indent, this);
+    }
+    str += ')';
   }
-  str += ')';
   return 'new ' + str;
 };
 
@@ -1186,8 +1261,12 @@ module.exports = function (node) {
 
   var codegen = this.process.bind(this), str = '<?php' + this.nl;
   if (node.children[0].kind === 'inline') {
-    str = node.children[0].value + str;
-    node.children.shift();
+    str = '';
+    node.children[0].omitClosingTag = true;
+  }
+  // Is the last expression and an inline
+  if (node.children[node.children.length - 1].kind === 'inline') {
+    node.children[node.children.length - 1].isLast = true;
   }
   if (
     !this.forceNamespaceBrackets &&
@@ -1516,25 +1595,26 @@ module.exports = function (node, indent) {
  * Usage declaration
  */
 module.exports = function (node, indent) {
-  var str = 'use' + this.ws, items = [], glue;
+  var str = 'use' + this.ws, items, glue;
   if (node.type) {
     str += node.type + this.ws;
   }
-  node.items.forEach(function (item) {
+
+  items = (node.items || []).map(function (item) {
     var useItem = item.name;
     if (item.alias) {
       useItem += ' as ' + item.alias;
     }
-    useItem += ';';
-    items.push(useItem);
+    return useItem;
   });
+
   if (node.items.length > 1) {
     glue = this.nl +  indent + this.indent;
     str += node.name + this.ws + '{' + glue;
-    str += items.join(glue) + this.nl;
+    str += items.join(',' + glue) + this.nl;
     str += indent + '};' + this.nl;
   } else {
-    str += items[0] + this.nl;
+    str += items[0] + ';' + this.nl;
   }
   return str;
 };
@@ -1570,6 +1650,9 @@ module.exports = function (node, indent) {
   var codegen = this.process.bind(this), str;
 
   str = 'while' + this.ws + '(' + codegen(node.test, indent) + ')';
+  if (!node.body) {
+    return str;
+  }
   if (node.shortForm) {
     str += ':' + this.nl;
   } else {
