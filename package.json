@@ -11,13 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:chris-l/php-unparser.git"
+    "url": "git@github.com:htmlacademy/php-unparser.git"
   },
   "keywords": [
     "unparser",
     "php",
     "ast"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "author": "Christopher Luna <dev@christopher-luna.com>",
   "license": "MIT",
   "devDependencies": {

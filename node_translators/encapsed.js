@@ -8,7 +8,8 @@ module.exports = function (node, indent, opt) {
     if (item.kind === 'string') {
       body += item.value;
     } else {
-      body += '{' + codegen(item, indent) + '}';
+      // body += '{' + codegen(item, indent) + '}';
+      body += codegen(item, indent);
     }
   });
 
@@ -24,9 +25,5 @@ module.exports = function (node, indent, opt) {
     return '`' + body + '`';
   }
 
-  if (node.isDoubleQuote) {
-    return '"' + body + '"';
-  }
-
-  return '\'' + body + '\'';
+  return '"'.concat(body, '"');
 };
